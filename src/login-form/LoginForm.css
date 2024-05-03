@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #3A3A72;
+}
+.Login-form{
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+}
+.Login-form-text{
+    color: #FBFFEA;
+    font-size: 6vh;
+
+    /*transform: translateX(27%);*/
+}
+.Login-form-input{
+    background-color: #FBFFEA;
+    color:#3A3A72;
+    position: relative;
+    border-radius: 10px;
+    /*transform: translateX(-50%);*/
+    width: 40%;
+    margin-bottom: 15%;
+
+}
+.Login-button{
+    width: 10%;
+    position: absolute;
+    border-radius: 10px;
+    margin-top: 15%;
+    /*transform: translateX(-50%);*/
+    transform: translate(140%,80%);
+}
