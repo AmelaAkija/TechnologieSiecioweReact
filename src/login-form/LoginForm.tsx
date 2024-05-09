@@ -1,28 +1,33 @@
-import { Button, TextField } from "@mui/material";
-import "./LoginForm.css";
-import star from "../star.svg";
-import { Formik } from "formik";
-import React, { useCallback, useMemo } from "react";
-import * as yup from "yup";
+import { Button, TextField } from '@mui/material';
+import './LoginForm.css';
+import { Link } from 'react-router-dom';
+import star from '../star.svg';
+import { Formik } from 'formik';
+import React, { useCallback, useMemo } from 'react';
+import * as yup from 'yup';
+
 function LoginForm() {
   const onSubmit = useCallback((values: any, formin: any) => {
     console.log(values);
+    // Add navigation logic here if needed
   }, []);
+
   const validationSchema = useMemo(
     () =>
       yup.object().shape({
-        username: yup.string().required("Required"),
+        username: yup.string().required('Required'),
         password: yup
           .string()
-          .required("Required")
-          .min(5, "Password too short"),
+          .required('Required')
+          .min(5, 'Password too short'),
       }),
     [],
   );
+
   return (
     <div className="Login-form">
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ username: '', password: '' }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnChange
@@ -37,7 +42,7 @@ function LoginForm() {
           >
             <h1 className="Login-form-text">Log in to the library system!</h1>
             <TextField
-              style={{ marginBottom: "1vh" }}
+              style={{ marginBottom: '1vh' }}
               id="username"
               label="Username"
               variant="standard"
@@ -60,26 +65,28 @@ function LoginForm() {
               error={formik.touched.password && !!formik.errors.password}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <Button
-              variant="contained"
-              type="submit"
-              form="signForm"
-              disabled={!(formik.isValid && formik.dirty)}
-              className="Login-button"
-              style={{ backgroundColor: "#fbffea", color: "#3A3A72" }}
-            >
-              Sign in
-            </Button>
+            <Link to="/book-list" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="contained"
+                type="submit"
+                form="signForm"
+                disabled={!(formik.isValid && formik.dirty)}
+                className="Login-button"
+                style={{ backgroundColor: '#fbffea', color: '#3A3A72' }}
+              >
+                Sign in
+              </Button>
+            </Link>
             <img
               src={star}
               alt="Star"
               style={{
-                width: "60vw",
-                height: "60vw",
-                position: "absolute",
+                width: '60vw',
+                height: '60vw',
+                position: 'absolute',
                 right: 0,
-                top: "35%",
-                transform: "translateY(-50%) rotate(180deg)",
+                top: '35%',
+                transform: 'translateY(-50%) rotate(180deg)',
               }}
             />
           </form>

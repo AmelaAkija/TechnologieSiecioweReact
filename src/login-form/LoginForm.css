@@ -27,11 +27,19 @@ body {
     margin-bottom: 15%;
 
 }
-.Login-button{
-    width: 10%;
-    position: absolute;
+.Login-form-input {
+    background-color: #fbffea;
+    color: #3a3a72;
+    position: relative;
     border-radius: 10px;
-    margin-top: 15%;
-    /*transform: translateX(-50%);*/
-    transform: translate(140%,80%);
+    width: 40%;
+    margin-bottom: 15%;
+}
+.Login-button {
+    width: fit-content;
+    border-radius: 10px;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+    transform: translate(230%,60%);
 }

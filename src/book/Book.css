@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #3A3A72;
+}
+.book-list {
+    padding: 2%;
+}
+.book-form {
+    padding: 2%;
+
+}
+
+
+.book-text {
+    color: #FBFFEA;
+    font-size: 6vh;
+
+}
+
+.medium-book-text {
+    color: #3A3A72;
+    font-size: 3vh;
+}
+.small-book-text {
+    color: #3A3A72;
+    font-size: 2vh;
+}
+.book-container {
+    width: 30%;
+    background-color: #FBFFEA;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+    padding: 2%;
+    box-sizing: border-box;
+}
