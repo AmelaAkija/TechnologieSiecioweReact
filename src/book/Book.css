@@ -15,24 +15,36 @@ body {
 .book-text {
     color: #FBFFEA;
     font-size: 6vh;
+    margin-right: 20%;
+
 
 }
 
 .medium-book-text {
     color: #3A3A72;
     font-size: 3vh;
+    margin-right: 20%;
 }
 .small-book-text {
     color: #3A3A72;
     font-size: 2vh;
+    margin-left: 5%;
 }
 .book-container {
     width: 30%;
     background-color: #FBFFEA;
-    border-radius: 10px;
+    border-radius: 5vh;
     display: flex;
     align-items: center;
     margin-bottom: 2%;
     padding: 2%;
     box-sizing: border-box;
+}
+.reserve-button{
+    width: fit-content;
+    position: relative;
+    border-radius: 10px;
+    background-color: #3a3a72;
+    color: #fbffea;
+    margin-top: 15px;
 }

@@ -26,31 +26,34 @@ const Book: React.FC<Props> = ({ book }) => {
   return (
     <div className="book-container">
       {' '}
-      {/* Use book-container class */}
       <h2
         className="medium-book-text"
         onClick={toggleDetails}
         style={{ cursor: 'pointer' }}
       >
         {book.title}
+        <h2 className="small-book-text" style={{ fontWeight: 'normal' }}>
+          <p>{book.author}</p>
+        </h2>
       </h2>
       {showDetails && (
         <div className="small-book-text">
           <p>
-            <strong>Author:</strong> {book.author}
+            <strong>ISBN:</strong> <br />
+            {book.isbn}
           </p>
           <p>
-            <strong>ISBN:</strong> {book.isbn}
+            <strong>Publisher:</strong> <br />
+            {book.publisher}
           </p>
           <p>
-            <strong>Publisher:</strong> {book.publisher}
+            <strong>Published Year:</strong> <br /> {book.publishYear}
           </p>
           <p>
-            <strong>Published Year:</strong> {book.publishYear}
+            <strong>Available Copies:</strong> <br />
+            {book.availableCopies}
           </p>
-          <p>
-            <strong>Available Copies:</strong> {book.availableCopies}
-          </p>
+          <button className="reserve-button"> Reserve</button>
         </div>
       )}
       {loading && <CircularProgress size={20} />}{' '}
