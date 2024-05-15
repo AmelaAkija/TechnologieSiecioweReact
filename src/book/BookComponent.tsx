@@ -25,7 +25,6 @@ const Book: React.FC<Props> = ({ book }) => {
 
   return (
     <div className="book-container">
-      {' '}
       <h2
         className="medium-book-text"
         onClick={toggleDetails}
@@ -37,7 +36,7 @@ const Book: React.FC<Props> = ({ book }) => {
         </h2>
       </h2>
       {showDetails && (
-        <div className="small-book-text">
+        <div className="details-container">
           <p>
             <strong>ISBN:</strong> <br />
             {book.isbn}
@@ -53,10 +52,10 @@ const Book: React.FC<Props> = ({ book }) => {
             <strong>Available Copies:</strong> <br />
             {book.availableCopies}
           </p>
-          <button className="reserve-button"> Reserve</button>
+          <button className="reserve-button">Reserve</button>
         </div>
       )}
-      {loading && <CircularProgress size={20} />}{' '}
+      {loading && <CircularProgress size={20} />}
     </div>
   );
 };
