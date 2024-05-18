@@ -4,17 +4,20 @@ import Book from './BookComponent';
 
 interface Props {
   books: BookType[];
+  title?: string;
 }
 
-const BookList: React.FC<Props> = ({ books }) => {
+const BookListComponent: React.FC<Props> = ({ books, title }) => {
   return (
-    <div className="book-list">
-      <h1 className="book-text">Book List</h1>
-      {books.map((book) => (
-        <Book key={book.bookId} book={book} />
-      ))}
+    <div>
+      {title && <h2 className="title-text">{title}</h2>}
+      <div className="book-list">
+        {books.map((book) => (
+          <Book key={book.bookId} book={book} />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default BookList;
+export default BookListComponent;

@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #3A3A72;
+}
+.loan-list {
+    padding: 2%;
+}
+.loan-form {
+    padding: 2%;
+
+}
+
+
+.loan-text {
+    color: #FBFFEA;
+    font-size: 6vh;
+    margin-right: 20%;
+
+
+}
+
+.medium-loan-text {
+    color: #3A3A72;
+    font-size: 3vh;
+    margin-right: 20%;
+}
+.small-loan-text {
+    color: #3A3A72;
+    font-size: 2vh;
+    margin-left: 5%;
+}
+.loan-container {
+    width: 30%;
+    background-color: #FBFFEA;
+    border-radius: 5vh;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2%;
+    padding: 2%;
+    box-sizing: border-box;
+}
+.details-container {
+    text-align: left;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #FBFFEA;
+    border-radius: 5px;
+}
+
+.remove-button{
+    width: fit-content;
+    position: relative;
+    border-radius: 10px;
+    background-color: #3a3a72;
+    color: #fbffea;
+    margin-top: 15px;
+}
+
+.remove-button{
+    position: absolute;
+    left: 20%;
+    top:17.5%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: 10%;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}

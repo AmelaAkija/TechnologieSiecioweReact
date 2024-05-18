@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
   Typography,
   ThemeProvider,
   createTheme,
+  Tab,
+  Tabs,
 } from '@mui/material';
 
 const theme = createTheme({
@@ -14,40 +16,48 @@ const theme = createTheme({
       main: '#3A3A72',
     },
     background: {
-      default: '#FBFFEA ',
+      default: '#FBFFEA',
     },
   },
 });
 
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const excludeLogin = location.pathname !== '/login';
+
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <strong>Library System</strong>
-          </Typography>
-          <Link
-            to="/login"
-            style={{
-              textDecoration: 'none',
-              marginRight: '20px',
-              color: theme.palette.primary.main,
-            }}
-          >
-            Login
-          </Link>
-          <Link
-            to="/book-list"
-            style={{
-              color: theme.palette.primary.main,
-              textDecoration: 'none',
-            }}
-          >
-            Book List
-          </Link>
-        </Toolbar>
-      </AppBar>
+      {excludeLogin && (
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <strong>Library System</strong>
+            </Typography>
+            <Tabs value={location.pathname}>
+              <Tab
+                style={{ color: '#FBFFEA' }}
+                label="Catalog"
+                value="/book-list"
+                onClick={() => navigate('/book-list')}
+              />
+              <Tab
+                style={{ color: '#FBFFEA' }}
+                label="Loans"
+                value="/loan-list"
+                onClick={() => navigate('/loan-list')}
+              />
+              <Tab
+                style={{ color: '#FBFFEA' }}
+                label="Home"
+                value="/home"
+                onClick={() => navigate('/home')}
+              />
+            </Tabs>
+          </Toolbar>
+        </AppBar>
+      )}
     </ThemeProvider>
   );
 };

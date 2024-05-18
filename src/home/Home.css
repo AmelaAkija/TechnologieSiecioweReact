@@ -1,0 +1,23 @@
+.home-text {
+    color: #FBFFEA;
+    font-size: 6vh;
+    margin-right: 20%;
+    display: flex;
+    align-content: center;
+    top:10%;
+    left:30%;
+    position: absolute;
+}
+.title-text{
+    color: #FBFFEA;
+    font-size: 6vh;
+    margin-right: 20%;
+    display: flex;
+    align-content: center;
+    top:20%;
+    left:3%;
+    position: absolute;
+}
+.book-list-container {
+    margin-top: 0.1%;
+}

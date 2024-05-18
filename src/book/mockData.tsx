@@ -1,4 +1,4 @@
-export {}; // Empty export statement to make it a module
+export {};
 
 const mockBooks = [
   {

@@ -1,17 +1,24 @@
 import { Button, TextField } from '@mui/material';
 import './LoginForm.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import star from '../star.svg';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import * as yup from 'yup';
 
 function LoginForm() {
-  const onSubmit = useCallback((values: any, formin: any) => {
-    console.log(values);
-    // Add navigation logic here if needed
-  }, []);
+  const navigate = useNavigate();
 
+  const onSubmit = useCallback(
+    (
+      values: { username: string; password: string },
+      formikHelpers: FormikHelpers<{ username: string; password: string }>,
+    ) => {
+      console.log(values);
+      navigate('/home');
+    },
+    [navigate],
+  );
   const validationSchema = useMemo(
     () =>
       yup.object().shape({
@@ -33,7 +40,7 @@ function LoginForm() {
         validateOnChange
         validateOnBlur
       >
-        {(formik: any) => (
+        {(formik) => (
           <form
             className="Login-form"
             id="signForm"
@@ -65,18 +72,17 @@ function LoginForm() {
               error={formik.touched.password && !!formik.errors.password}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <Link to="/book-list" style={{ textDecoration: 'none' }}>
-              <Button
-                variant="contained"
-                type="submit"
-                form="signForm"
-                disabled={!(formik.isValid && formik.dirty)}
-                className="Login-button"
-                style={{ backgroundColor: '#fbffea', color: '#3A3A72' }}
-              >
-                Sign in
-              </Button>
-            </Link>
+            {/* Remove Link component */}
+            <Button
+              variant="contained"
+              type="submit"
+              form="signForm"
+              disabled={!(formik.isValid && formik.dirty)}
+              className="Login-button"
+              style={{ backgroundColor: '#fbffea', color: '#3A3A72' }}
+            >
+              Sign in
+            </Button>
             <img
               src={star}
               alt="Star"

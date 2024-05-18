@@ -22,24 +22,24 @@ body {
     color:#3A3A72;
     position: relative;
     border-radius: 10px;
-    /*transform: translateX(-50%);*/
+    transform: translateX(5%);
     width: 40%;
     margin-bottom: 15%;
 
 }
-.Login-form-input {
-    background-color: #fbffea;
-    color: #3a3a72;
-    position: relative;
-    border-radius: 10px;
-    width: 40%;
-    margin-bottom: 15%;
-}
+/*.Login-form-input {*/
+/*    background-color: #fbffea;*/
+/*    color: #3a3a72;*/
+/*    position: relative;*/
+/*    border-radius: 10px;*/
+/*    width: 40%;*/
+/*    margin-bottom: 15%;*/
+/*}*/
 .Login-button {
     width: fit-content;
     border-radius: 10px;
     background-color: #fbffea;
     color: #3a3a72;
     margin-top: 15px;
-    transform: translate(230%,60%);
+    transform: translate(250%,60%);
 }
