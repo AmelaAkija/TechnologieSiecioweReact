@@ -3,32 +3,21 @@ body {
     padding: 0;
     background-color: #3A3A72;
 }
-
 .book-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
     padding: 2%;
-    margin-top: 7%;
 }
-
 .book-form {
     padding: 2%;
+
 }
-.title-text{
-    color: #FBFFEA;
-    font-size: 6vh;
-    position:absolute;
-    margin-top:1%;
-    margin-bottom: 20%;
-    margin-right: 20%;
-    display: flex;
-    align-content: center;
-}
+
+
 .book-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
+
+
 }
 
 .medium-book-text {
@@ -36,50 +25,44 @@ body {
     font-size: 3vh;
     margin-right: 20%;
 }
-
 .small-book-text {
     color: #3A3A72;
     font-size: 2vh;
-    margin-left: 5%;
+    /*margin-left: 5%;*/
 }
-
+.book-container {
+    width: 50%;
+    /*width:fit-content;*/
+    height: fit-content;
+    background-color: #FBFFEA;
+    border-radius: 5vh;
+    /*display: flex;*/
+    /*align-items: center;*/
+    margin-bottom: 2%;
+    padding: 2%;
+    box-sizing: border-box;
+}
 .details-container {
+    display: flex;
+    color: #3a3a72;
+    flex-wrap: nowrap;
     text-align: left;
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: 2%;
+    padding: 2%;
     border: 1px solid #FBFFEA;
     border-radius: 5px;
-    color: #3a3a72;
+    gap: 10px;
 }
-
-.reserve-button {
+.details-container p {
+    flex: 1;
+    margin: 0;
+}
+.reserve-button{
+    height: fit-content;
     width: fit-content;
     position: relative;
     border-radius: 10px;
     background-color: #3a3a72;
     color: #fbffea;
     margin-top: 15px;
-}
-
-.book-container {
-    /*flex-grow: 1;*/
-    box-sizing: border-box;
-    background-color: #FBFFEA;
-    border-radius: 5vh;
-    padding: 2%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    flex-basis: calc(33.333% - 16px);
-}
-
-@media (max-width: 56.25em) {
-    .book-container {
-        width: 48%;
-    }
-}
-
-@media (max-width: 37.5em) {
-    .book-container {
-        width: 100%;
-    }
 }

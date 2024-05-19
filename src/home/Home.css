@@ -1,13 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #3A3A72;
+    overflow-x: hidden;
+}
 .home-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
     display: flex;
     align-content: center;
-    top:10%;
-    left:30%;
+    top:5%;
+    left:2%;
     position: absolute;
 }
+
+
 .title-text{
     color: #FBFFEA;
     font-size: 6vh;
@@ -19,5 +27,7 @@
     position: absolute;
 }
 .book-list-container {
-    margin-top: 0.1%;
+    margin-top: 5%;
+    position: relative;
+    left: 23%;
 }

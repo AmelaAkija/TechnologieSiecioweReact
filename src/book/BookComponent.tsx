@@ -7,12 +7,20 @@ interface Props {
   book: BookType;
 }
 
-const BookComponent: React.FC<Props> = ({ book }) => {
+const Book: React.FC<Props> = ({ book }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const toggleDetails = () => {
-    setShowDetails(!showDetails);
+    if (!showDetails) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setShowDetails(true);
+      }, 1000);
+    } else {
+      setShowDetails(false);
+    }
   };
 
   return (
@@ -52,4 +60,4 @@ const BookComponent: React.FC<Props> = ({ book }) => {
   );
 };
 
-export default BookComponent;
+export default Book;

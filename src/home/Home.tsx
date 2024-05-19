@@ -36,10 +36,9 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1 className="home-text">Welcome to Library System</h1>
+      <h1 className="home-text">Welcome to Library System!</h1>
       <div className="book-list-container">
-        <h2 className="title-text"> Borrowed books:</h2>
-        <BookList books={borrowedBooks} />
+        <BookList books={borrowedBooks} title={'Borrowed books:'} />
       </div>
     </div>
   );
