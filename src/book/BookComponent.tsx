@@ -5,9 +5,10 @@ import { CircularProgress } from '@mui/material';
 
 interface Props {
   book: BookType;
+  showReserveButton: boolean;
 }
 
-const Book: React.FC<Props> = ({ book }) => {
+const Book: React.FC<Props> = ({ book, showReserveButton }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +53,9 @@ const Book: React.FC<Props> = ({ book }) => {
             <strong>Available Copies:</strong> <br />
             {book.availableCopies}
           </p>
-          <button className="reserve-button">Reserve</button>
+          {showReserveButton && (
+            <button className="reserve-button">Reserve</button>
+          )}
         </div>
       )}
       {loading && <CircularProgress size={20} />}

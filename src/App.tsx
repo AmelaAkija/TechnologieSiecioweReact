@@ -22,7 +22,13 @@ function App() {
         />
         <Route
           path="/book-list"
-          element={<BookListComponent books={mockBooks} title={'Book list'} />}
+          element={
+            <BookListComponent
+              books={mockBooks}
+              title={'Book list'}
+              showReserveButton={true}
+            />
+          }
         />
       </Routes>
     </Router>

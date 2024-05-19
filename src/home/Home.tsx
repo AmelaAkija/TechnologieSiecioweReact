@@ -4,10 +4,10 @@ import BookList from '../book/BookListComponent';
 import Book from '../book/Book';
 
 const Home: React.FC = () => {
-  const borrowedBooks: Book[] = [
+  const borrowedBooks = [
     {
       bookId: 1,
-      isbn: '978-0451524935',
+      isbn: '9780451524935',
       title: '1984',
       author: 'George Orwell',
       publisher: 'Signet Classic',
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     },
     {
       bookId: 2,
-      isbn: '978-0061120084',
+      isbn: '9780061120084',
       title: 'To Kill a Mockingbird',
       author: 'Harper Lee',
       publisher: 'Harper Perennial Modern Classics',
@@ -38,7 +38,11 @@ const Home: React.FC = () => {
     <div>
       <h1 className="home-text">Welcome to Library System!</h1>
       <div className="book-list-container">
-        <BookList books={borrowedBooks} title={'Borrowed books:'} />
+        <BookList
+          books={borrowedBooks}
+          title={'Borrowed books:'}
+          showReserveButton={false}
+        />
       </div>
     </div>
   );
