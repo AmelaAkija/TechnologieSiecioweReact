@@ -31,3 +31,14 @@ body {
     position: relative;
     left: 23%;
 }
+.tab {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: #3a3a72;
+    color: #FBFFEA;
+}

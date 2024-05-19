@@ -21,6 +21,14 @@ const theme = createTheme({
   },
 });
 
+// Define the color of the active tab
+const activeTabColor = {
+  backgroundColor: '#FBFFEA',
+  color: '#3a3a72',
+  borderRadius: '1vh',
+  fontWeight: 'bold',
+};
+
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,22 +45,31 @@ const Navbar: React.FC = () => {
             </Typography>
             <Tabs value={location.pathname}>
               <Tab
-                style={{ color: '#FBFFEA' }}
                 label="Catalog"
                 value="/book-list"
                 onClick={() => navigate('/book-list')}
+                sx={{
+                  color: '#FBFFEA',
+                  ...(location.pathname === '/book-list' && activeTabColor),
+                }}
               />
               <Tab
-                style={{ color: '#FBFFEA' }}
                 label="Loans"
                 value="/loan-list"
                 onClick={() => navigate('/loan-list')}
+                sx={{
+                  color: '#FBFFEA',
+                  ...(location.pathname === '/loan-list' && activeTabColor),
+                }}
               />
               <Tab
-                style={{ color: '#FBFFEA' }}
                 label="Home"
                 value="/home"
                 onClick={() => navigate('/home')}
+                sx={{
+                  color: '#FBFFEA',
+                  ...(location.pathname === '/home' && activeTabColor),
+                }}
               />
             </Tabs>
           </Toolbar>
