@@ -1,28 +1,57 @@
 import { Button, TextField } from '@mui/material';
 import './LoginForm.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import star from '../star.svg';
 import { Formik, FormikHelpers } from 'formik';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import * as yup from 'yup';
+import axios from 'axios';
+
+interface LoginFormValues {
+  login: string;
+  password: string;
+}
 
 function LoginForm() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = useCallback(
-    (
-      values: { username: string; password: string },
-      formikHelpers: FormikHelpers<{ username: string; password: string }>,
+    async (
+      values: LoginFormValues,
+      formikHelpers: FormikHelpers<LoginFormValues>,
     ) => {
       console.log(values);
-      navigate('/home');
+      const client = axios.create({ baseURL: 'http://localhost:8080' });
+      try {
+        const response = await client.post('/Login', values);
+        console.log(response);
+
+        if (response.status === 200) {
+          const token = response.data;
+          localStorage.setItem('authToken', token);
+          navigate('/home');
+        }
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          if (error.response && error.response.status === 401) {
+            setErrorMessage('Wrong username or password');
+          } else {
+            setErrorMessage('An error occurred. Please try again later.');
+          }
+        } else {
+          setErrorMessage('An unknown error occurred.');
+        }
+      }
+      console.log('request sent');
     },
     [navigate],
   );
+
   const validationSchema = useMemo(
     () =>
       yup.object().shape({
-        username: yup.string().required('Required'),
+        login: yup.string().required('Required'),
         password: yup
           .string()
           .required('Required')
@@ -34,7 +63,7 @@ function LoginForm() {
   return (
     <div className="Login-form">
       <Formik
-        initialValues={{ username: '', password: '' }}
+        initialValues={{ login: '', password: '' }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnChange
@@ -50,15 +79,15 @@ function LoginForm() {
             <h1 className="Login-form-text">Log in to the library system!</h1>
             <TextField
               style={{ marginBottom: '1vh' }}
-              id="username"
+              id="login"
               label="Username"
               variant="standard"
-              name="username"
+              name="login"
               className="Login-form-input"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.username && !!formik.errors.username}
-              helperText={formik.touched.username && formik.errors.username}
+              error={formik.touched.login && !!formik.errors.login}
+              helperText={formik.touched.login && formik.errors.login}
             />
             <TextField
               id="password"
@@ -72,7 +101,9 @@ function LoginForm() {
               error={formik.touched.password && !!formik.errors.password}
               helperText={formik.touched.password && formik.errors.password}
             />
-            {/* Remove Link component */}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
             <Button
               variant="contained"
               type="submit"
@@ -83,18 +114,7 @@ function LoginForm() {
             >
               Sign in
             </Button>
-            <img
-              src={star}
-              alt="Star"
-              style={{
-                width: '60vw',
-                height: '60vw',
-                position: 'absolute',
-                right: 0,
-                top: '35%',
-                transform: 'translateY(-50%) rotate(180deg)',
-              }}
-            />
+            <img src={star} alt="Star" className="star" />
           </form>
         )}
       </Formik>

@@ -11,6 +11,14 @@ body {
 
 
 }
+
+.error-message {
+    color: #FBFFEA;
+    margin-top: 10px;
+    margin-left: 2%;
+    font-size: 0.9em;
+    font-weight: bold;
+}
 .Login-form-text{
     color: #FBFFEA;
     font-size: 6vh;
@@ -27,6 +35,14 @@ body {
     margin-bottom: 15%;
 
 }
+.star{
+    width: 60vw;
+    height: 60vw;
+    position: absolute;
+    right: 0;
+    top: 35%;
+    transform: translateY(-50%) rotate(180deg);
+}
 /*.Login-form-input {*/
 /*    background-color: #fbffea;*/
 /*    color: #3a3a72;*/
@@ -41,5 +57,5 @@ body {
     background-color: #fbffea;
     color: #3a3a72;
     margin-top: 15px;
-    transform: translate(250%,60%);
+    transform: translate(250%,30%);
 }
