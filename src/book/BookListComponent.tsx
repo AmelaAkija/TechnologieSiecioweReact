@@ -17,10 +17,11 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
     const getBooks = async () => {
       try {
         const books = await fetchBooks();
-        setBooks(books);
-        setLoading(false);
+        console.log('Fetched books:', books); // Add logging
+        setBooks(Array.isArray(books) ? books : []);
       } catch (error) {
         setError('Failed to fetch books');
+      } finally {
         setLoading(false);
       }
     };
@@ -34,6 +35,10 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
 
   if (error) {
     return <div>{error}</div>;
+  }
+
+  if (!Array.isArray(books)) {
+    return <div>Unexpected response format</div>;
   }
 
   return (

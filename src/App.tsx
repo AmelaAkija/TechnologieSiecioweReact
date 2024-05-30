@@ -21,7 +21,6 @@ function App() {
     <Router>
       <Navbar role={role} />
       <Routes>
-        {/* Pass setRoleFromLogin as a prop to LoginForm */}
         <Route path="/" element={<LoginForm setRole={setRoleFromLogin} />} />
         <Route path="/home" element={<Home />} />
         <Route
