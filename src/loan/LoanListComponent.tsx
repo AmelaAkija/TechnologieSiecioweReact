@@ -13,7 +13,7 @@ const LoanList: React.FC<Props> = ({ loans }) => {
       {loans.map((loan) => (
         <Loan key={loan.id} loan={loan} />
       ))}
-      <button className="remove-button"> Add loan</button>
+      {/*<button className="remove-button"> Add loan</button>*/}
     </div>
   );
 };

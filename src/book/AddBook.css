@@ -1,0 +1,126 @@
+.isbn-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.title-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.author-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.publisher-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.year-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.copies-input{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+
+.add-book-text {
+    color: #FBFFEA;
+    font-size: 6vh;
+    margin-right: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    top:5%;
+    left:33.5%;
+    transform: translate(75%,40%);
+}
+.add-book-text3{
+    color: #FBFFEA;
+    font-size: 6vh;
+    margin-right: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    top:5%;
+    left:25%;
+    transform: translate(75%,40%);
+}
+
+.add-book-text2 {
+    color: #FBFFEA;
+    font-size: 2vh;
+    margin-right: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    top:35%;
+    left:27%;
+    transform: translate(75%,40%);
+}
+.add-book-button{
+    position: absolute;
+    left: 45%;
+    top:60%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: 10%;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
+.success-message{
+        color: #FBFFEA;
+        font-size: 2vh;
+        margin-right: 20%;
+        position: absolute;
+        display: flex;
+        align-content: center;
+        top:53%;
+        left:22.5%;
+        transform: translate(75%,40%);
+}

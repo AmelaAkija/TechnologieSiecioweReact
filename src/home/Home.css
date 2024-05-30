@@ -8,14 +8,56 @@ body {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
+    position: absolute;
     display: flex;
     align-content: center;
     top:5%;
-    left:2%;
-    position: absolute;
+    left:16%;
+    transform: translate(75%,40%);
 }
 
-
+.loan-button{
+    position: absolute;
+    left: 25%;
+    top:40%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: 10%;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
+.book-button{
+    position: absolute;
+    left: 45%;
+    top:40%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: 10%;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
+.user-button{
+    position: absolute;
+    left: 65%;
+    top:40%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: 10%;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
 .title-text{
     color: #FBFFEA;
     font-size: 6vh;

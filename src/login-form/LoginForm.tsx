@@ -40,7 +40,8 @@ function LoginForm(props: LoginFormProps) {
           const decodedToken = jwtDecode<MyToken>(token);
           const role = decodedToken.role;
           props.setRole(role);
-          console.log(role);
+          localStorage.setItem('role', role);
+          console.log('ROLA TO: ', role);
           navigate('/home');
         }
       } catch (error: unknown) {

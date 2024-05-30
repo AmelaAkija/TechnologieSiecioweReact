@@ -35,49 +35,84 @@ const Navbar: React.FC<{ role: string }> = ({ role }) => {
 
   const excludeLogin = location.pathname !== '/login';
 
-  return (
-    <ThemeProvider theme={theme}>
-      {excludeLogin && (
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <strong>Library System</strong>
-            </Typography>
-            <Tabs value={location.pathname}>
-              <Tab
-                label="Catalog"
-                value="/book-list"
-                onClick={() => navigate('/book-list')}
-                sx={{
-                  color: '#FBFFEA',
-                  ...(location.pathname === '/book-list' && activeTabColor),
-                }}
-              />
-              <Tab
-                label="Loans"
-                value="/loan-list"
-                onClick={() => navigate('/loan-list')}
-                sx={{
-                  color: '#FBFFEA',
-                  ...(location.pathname === '/loan-list' && activeTabColor),
-                  ...(role !== 'ROLE_LIBRARIAN' && { display: 'none' }),
-                }}
-              />
-              <Tab
-                label="Home"
-                value="/home"
-                onClick={() => navigate('/home')}
-                sx={{
-                  color: '#FBFFEA',
-                  ...(location.pathname === '/home' && activeTabColor),
-                }}
-              />
-            </Tabs>
-          </Toolbar>
-        </AppBar>
-      )}
-    </ThemeProvider>
-  );
+  if (role === 'ROLE_LIBRARIAN') {
+    return (
+      <ThemeProvider theme={theme}>
+        {excludeLogin && (
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <strong>Library System</strong>
+              </Typography>
+              <Tabs value={location.pathname}>
+                <Tab
+                  label="Catalog"
+                  value="/book-list"
+                  onClick={() => navigate('/book-list')}
+                  sx={{
+                    color: '#FBFFEA',
+                    ...(location.pathname === '/book-list' && activeTabColor),
+                  }}
+                />
+                <Tab
+                  label="Loans"
+                  value="/loan-list"
+                  onClick={() => navigate('/loan-list')}
+                  sx={{
+                    color: '#FBFFEA',
+                    ...(location.pathname === '/loan-list' && activeTabColor),
+                  }}
+                />
+                <Tab
+                  label="Home"
+                  value="/home"
+                  onClick={() => navigate('/home')}
+                  sx={{
+                    color: '#FBFFEA',
+                    ...(location.pathname === '/home' && activeTabColor),
+                  }}
+                />
+              </Tabs>
+            </Toolbar>
+          </AppBar>
+        )}
+      </ThemeProvider>
+    );
+  } else {
+    return (
+      <ThemeProvider theme={theme}>
+        {excludeLogin && (
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <strong>Library System</strong>
+              </Typography>
+              <Tabs value={location.pathname}>
+                <Tab
+                  label="Catalog"
+                  value="/book-list"
+                  onClick={() => navigate('/book-list')}
+                  sx={{
+                    color: '#FBFFEA',
+                    ...(location.pathname === '/book-list' && activeTabColor),
+                  }}
+                />
+                <Tab
+                  label="Home"
+                  value="/home"
+                  onClick={() => navigate('/home-reader')}
+                  sx={{
+                    color: '#FBFFEA',
+                    ...(location.pathname === '/home-reader' && activeTabColor),
+                  }}
+                />
+              </Tabs>
+            </Toolbar>
+          </AppBar>
+        )}
+      </ThemeProvider>
+    );
+  }
 };
 
 export default Navbar;
