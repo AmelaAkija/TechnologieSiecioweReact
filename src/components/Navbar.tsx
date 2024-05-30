@@ -29,7 +29,7 @@ const activeTabColor = {
   fontWeight: 'bold',
 };
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ role: string }> = ({ role }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -60,6 +60,7 @@ const Navbar: React.FC = () => {
                 sx={{
                   color: '#FBFFEA',
                   ...(location.pathname === '/loan-list' && activeTabColor),
+                  ...(role !== 'ROLE_LIBRARIAN' && { display: 'none' }),
                 }}
               />
               <Tab

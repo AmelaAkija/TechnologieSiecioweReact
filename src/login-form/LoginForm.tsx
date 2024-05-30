@@ -6,13 +6,20 @@ import { Formik, FormikHelpers } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
-
+import jwt_decode, { jwtDecode } from 'jwt-decode';
 interface LoginFormValues {
   login: string;
   password: string;
 }
+interface LoginFormProps {
+  setRole: (role: string) => void;
+}
+interface MyToken {
+  id: string;
+  role: string;
+}
 
-function LoginForm() {
+function LoginForm(props: LoginFormProps) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -30,6 +37,10 @@ function LoginForm() {
         if (response.status === 200) {
           const token = response.data;
           localStorage.setItem('authToken', token);
+          const decodedToken = jwtDecode<MyToken>(token);
+          const role = decodedToken.role;
+          props.setRole(role);
+          console.log(role);
           navigate('/home');
         }
       } catch (error: unknown) {
