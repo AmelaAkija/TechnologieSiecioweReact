@@ -1,4 +1,4 @@
-.isbn-input{
+.username-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -9,7 +9,7 @@
     width: 15%;
     border-radius: 5px;
 }
-.title-input{
+.password-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -20,18 +20,18 @@
     width: 15%;
     border-radius: 5px;
 }
-.author-input{
+.mail-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
-    left: 30%;
+    left: 42%;
     top: 50%;
     border-color: #FBFFEA;
     height: 4%;
     width: 15%;
     border-radius: 5px;
 }
-.publisher-input{
+.fullusername-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -42,7 +42,7 @@
     width: 15%;
     border-radius: 5px;
 }
-.year-input{
+.role-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -53,19 +53,7 @@
     width: 15%;
     border-radius: 5px;
 }
-.copies-input{
-    color: #3a3a72;
-    background-color: #FBFFEA;
-    position: absolute;
-    left: 55%;
-    top: 50%;
-    border-color: #FBFFEA;
-    height: 4%;
-    width: 15%;
-    border-radius: 5px;
-}
-
-.add-book-text {
+.add-user-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
@@ -76,7 +64,7 @@
     left:33.5%;
     transform: translate(75%,40%);
 }
-.add-book-text3{
+.add-user-text3{
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
@@ -88,7 +76,7 @@
     transform: translate(75%,40%);
 }
 
-.add-book-text2 {
+.add-user-text2 {
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
@@ -99,7 +87,7 @@
     left:27%;
     transform: translate(75%,40%);
 }
-.add-book-button{
+.add-user-button{
     position: absolute;
     left: 45%;
     top:60%;
@@ -114,17 +102,6 @@
     margin-top: 15px;
 }
 .success-message{
-        color: #FBFFEA;
-        font-size: 2vh;
-        margin-right: 20%;
-        position: absolute;
-        display: flex;
-        align-content: center;
-        top:53%;
-        left:22.5%;
-        transform: translate(75%,40%);
-}
-.error-message-book{
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
@@ -132,6 +109,17 @@
     display: flex;
     align-content: center;
     top:53%;
-    left:21%;
+    left:22.5%;
+    transform: translate(75%,40%);
+}
+.error-message{
+    color: #FBFFEA;
+    font-size: 2vh;
+    margin-right: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    top:53%;
+    left:31%;
     transform: translate(85%,40%);
 }

@@ -11,6 +11,9 @@ import mockLoans from './loan/mockDataLoan';
 import ReaderHome from './READER/reader-home/ReaderHome';
 import AddBook from './book/AddBook';
 
+import AddUser from './users/AddUser';
+import AddLoan from './loan/AddLoan';
+
 function App() {
   const [role, setRole] = useState('');
 
@@ -33,6 +36,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/home-reader" element={<ReaderHome />} />
         <Route path="/add-book" element={<AddBook role={role} />} />
+        <Route path="/add-user" element={<AddUser role={role} />} />
+        <Route path="/add-loan" element={<AddLoan role={role} />} />
         <Route
           path="/loan-list"
           element={<LoanListComponent loans={mockLoans} />}

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios'; // Import AxiosError
 import './AddBook.css';
 
 const AddBook = ({ role }: { role: string }) => {
@@ -13,6 +13,7 @@ const AddBook = ({ role }: { role: string }) => {
     availableCopies: '',
   });
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>(''); // Set type explicitly to string
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,8 +37,16 @@ const AddBook = ({ role }: { role: string }) => {
         publishYear: '',
         availableCopies: '',
       });
-    } catch (error) {
-      console.error('Error adding book:', error);
+      setErrorMessage(''); // Reset error message
+    } catch (error: any) {
+      if (
+        (error as AxiosError).response &&
+        (error as AxiosError).response?.status === 409
+      ) {
+        setErrorMessage((error as AxiosError).response?.data as string); // Cast to string
+      } else {
+        console.error('Error adding book:', error);
+      }
     }
   };
 
@@ -51,11 +60,11 @@ const AddBook = ({ role }: { role: string }) => {
       </div>
     );
   }
-
   return (
     <div>
       <h2 className="add-book-text">Add Book</h2>
       {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message-book">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"

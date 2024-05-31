@@ -1,4 +1,4 @@
-.isbn-input{
+.loanDateStart-input {
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -9,7 +9,8 @@
     width: 15%;
     border-radius: 5px;
 }
-.title-input{
+
+.loanPeriod-input {
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
@@ -20,44 +21,12 @@
     width: 15%;
     border-radius: 5px;
 }
-.author-input{
+
+.loanDateEnd-input {
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
     left: 30%;
-    top: 50%;
-    border-color: #FBFFEA;
-    height: 4%;
-    width: 15%;
-    border-radius: 5px;
-}
-.publisher-input{
-    color: #3a3a72;
-    background-color: #FBFFEA;
-    position: absolute;
-    left: 55%;
-    top: 30%;
-    border-color: #FBFFEA;
-    height: 4%;
-    width: 15%;
-    border-radius: 5px;
-}
-.year-input{
-    color: #3a3a72;
-    background-color: #FBFFEA;
-    position: absolute;
-    left: 55%;
-    top: 40%;
-    border-color: #FBFFEA;
-    height: 4%;
-    width: 15%;
-    border-radius: 5px;
-}
-.copies-input{
-    color: #3a3a72;
-    background-color: #FBFFEA;
-    position: absolute;
-    left: 55%;
     top: 50%;
     border-color: #FBFFEA;
     height: 4%;
@@ -65,7 +34,43 @@
     border-radius: 5px;
 }
 
-.add-book-text {
+.userId-input {
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+
+.bookId-input {
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+
+.success-message-loan{
+    color: #FBFFEA;
+    font-size: 2vh;
+    margin-right: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    top:48%;
+    left:37%;
+    transform: translate(75%,40%);
+}
+
+.add-loan-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
@@ -76,7 +81,8 @@
     left:33.5%;
     transform: translate(75%,40%);
 }
-.add-book-text3{
+
+.add-loan-text3 {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
@@ -88,7 +94,7 @@
     transform: translate(75%,40%);
 }
 
-.add-book-text2 {
+.add-loan-text2 {
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
@@ -99,39 +105,23 @@
     left:27%;
     transform: translate(75%,40%);
 }
-.add-book-button{
+
+.add-loan-button {
     position: absolute;
-    left: 45%;
-    top:60%;
+    left: 48%;
+    top: 55%;
     border-color: #FBFFEA;
     border-radius: 10px;
-    height:5%;
-    width: 10%;
-    font-weight:bold;
-    font-size: 3vh;
-    background-color: #fbffea;
-    color: #3a3a72;
-    margin-top: 15px;
+
 }
-.success-message{
-        color: #FBFFEA;
-        font-size: 2vh;
-        margin-right: 20%;
-        position: absolute;
-        display: flex;
-        align-content: center;
-        top:53%;
-        left:22.5%;
-        transform: translate(75%,40%);
-}
-.error-message-book{
+.error-message-loan{
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
     position: absolute;
     display: flex;
     align-content: center;
-    top:53%;
-    left:21%;
-    transform: translate(85%,40%);
+    top:48%;
+    left:40%;
+    transform: translate(40%,10%);
 }
