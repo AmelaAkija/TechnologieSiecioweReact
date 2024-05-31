@@ -40,7 +40,7 @@ function App() {
         <Route path="/add-loan" element={<AddLoan role={role} />} />
         <Route
           path="/loan-list"
-          element={<LoanListComponent loans={mockLoans} />}
+          element={<LoanListComponent title={'Loans'} />}
         />
         <Route
           path="/book-list"

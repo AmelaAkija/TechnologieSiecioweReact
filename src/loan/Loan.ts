@@ -1,11 +1,9 @@
-import Book from '../book/Book';
-
-interface Loan {
-  id: number;
-  loanDateStart: string;
-  loanDateEnd: string;
-  userLoan: string;
-  bookLoan: string;
+export interface Loan {
+  loanId: number;
+  loanDateStart: number;
+  loanPeriod: number;
+  loanDateEnd: number | null;
+  userId: number;
+  bookId: number;
 }
-
 export default Loan;

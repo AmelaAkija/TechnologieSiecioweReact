@@ -15,6 +15,14 @@ const Loan: React.FC<Props> = ({ loan }) => {
     setShowDetails(!showDetails);
   };
 
+  const formatDate = (timestamp: number | null): string => {
+    if (timestamp) {
+      const date = new Date(timestamp);
+      return date.toISOString().slice(0, 10);
+    }
+    return '';
+  };
+
   const reserveLoan = () => {
     console.log('Loan reserved!');
   };
@@ -26,28 +34,32 @@ const Loan: React.FC<Props> = ({ loan }) => {
         onClick={toggleDetails}
         style={{ cursor: 'pointer' }}
       >
-        Loan ID: {loan.id}
+        Loan ID: {loan.loanId}
       </h2>
       {showDetails && (
         <div className="details-container">
           <p>
             <strong>Start Date:</strong> <br />
-            {loan.loanDateStart}
+            {formatDate(loan.loanDateStart)}
+          </p>
+          <p>
+            <strong>Loan period:</strong> <br />
+            {loan.loanPeriod}
           </p>
           <p>
             <strong>End Date:</strong> <br />
-            {loan.loanDateEnd}
+            {loan.loanDateEnd ? formatDate(loan.loanDateEnd) : '-'}
           </p>
           <p>
-            <strong>User:</strong> <br /> {loan.userLoan}
+            <strong>User:</strong> <br /> {loan.userId}
           </p>
           <p>
             <strong>Book:</strong> <br />
-            {loan.bookLoan}
+            {loan.bookId}
           </p>
-          <button className="remove-button" onClick={reserveLoan}>
-            remove loan
-          </button>
+          {/*<button className="remove-button" onClick={reserveLoan}>*/}
+          {/*  remove loan*/}
+          {/*</button>*/}
         </div>
       )}
       {loading && <CircularProgress size={20} />}
