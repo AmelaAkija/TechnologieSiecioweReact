@@ -62,24 +62,25 @@
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
+    margin-left: 5%;
+    margin-top: 20%;
     position: absolute;
     display: flex;
     align-content: center;
-    top:48%;
-    left:37%;
-    transform: translate(75%,40%);
+
+    /*transform: translate(75%,40%);*/
 }
 
 .add-loan-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
-    position: absolute;
+    position: relative;
     display: flex;
     align-content: center;
     top:5%;
-    left:33.5%;
-    transform: translate(75%,40%);
+    margin-left:3%;
+    /*transform: translate(75%,40%);*/
 }
 
 .add-loan-text3 {
@@ -107,9 +108,14 @@
 }
 
 .add-loan-button {
-    position: absolute;
-    left: 48%;
-    top: 55%;
+    position: relative;
+    margin-top: 12%;
+    margin-left: 45.2%;
+    width: 10%;
+    font-size: 3vh;
+    font-weight: bold;
+    color: #3a3a72;
+    background-color: #FBFFEA;
     border-color: #FBFFEA;
     border-radius: 10px;
 
@@ -118,10 +124,9 @@
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
+    margin-left: 5%;
+    margin-top: 20%;
     position: absolute;
     display: flex;
     align-content: center;
-    top:48%;
-    left:40%;
-    transform: translate(40%,10%);
 }

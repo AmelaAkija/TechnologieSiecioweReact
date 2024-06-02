@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios, { AxiosError } from 'axios'; // Import AxiosError
 import './AddBook.css';
+import { useTranslation } from 'react-i18next';
 
 const AddBook = ({ role }: { role: string }) => {
   console.log('role:', role);
@@ -14,7 +15,7 @@ const AddBook = ({ role }: { role: string }) => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>(''); // Set type explicitly to string
-
+  const { t, i18n } = useTranslation();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setBook((prevBook) => ({
@@ -62,9 +63,11 @@ const AddBook = ({ role }: { role: string }) => {
   }
   return (
     <div>
-      <h2 className="add-book-text">Add Book</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message-book">{errorMessage}</p>}
+      <h2 className="add-book-text"> {t('AddBook')}:</h2>
+      {successMessage && (
+        <p className="success-message-book">{t('successBook')}</p>
+      )}
+      {errorMessage && <p className="error-message-book">{t('error')}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -79,7 +82,7 @@ const AddBook = ({ role }: { role: string }) => {
           type="text"
           name="title"
           className="title-input"
-          placeholder="Title"
+          placeholder={t('Title')}
           value={book.title}
           onChange={handleChange}
           required
@@ -88,7 +91,7 @@ const AddBook = ({ role }: { role: string }) => {
           type="text"
           name="author"
           className="author-input"
-          placeholder="Author"
+          placeholder={t('Author')}
           value={book.author}
           onChange={handleChange}
           required
@@ -97,7 +100,7 @@ const AddBook = ({ role }: { role: string }) => {
           type="text"
           name="publisher"
           className="publisher-input"
-          placeholder="Publisher"
+          placeholder={t('Publisher')}
           value={book.publisher}
           onChange={handleChange}
           required
@@ -106,7 +109,7 @@ const AddBook = ({ role }: { role: string }) => {
           type="number"
           name="publishYear"
           className="year-input"
-          placeholder="Publish Year"
+          placeholder={t('Year')}
           value={book.publishYear}
           onChange={handleChange}
           required
@@ -115,13 +118,13 @@ const AddBook = ({ role }: { role: string }) => {
           type="number"
           name="availableCopies"
           className="copies-input"
-          placeholder="Available Copies"
+          placeholder={t('Copies')}
           value={book.availableCopies}
           onChange={handleChange}
           required
         />
         <button className="add-book-button" type="submit">
-          Add Book
+          {t('AddBook')}
         </button>
       </form>
     </div>

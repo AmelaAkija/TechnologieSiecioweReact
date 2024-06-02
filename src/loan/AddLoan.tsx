@@ -1,45 +1,26 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './AddLoan.css';
+import { useTranslation } from 'react-i18next';
 
 const AddLoan = ({ role }: { role: string }) => {
-  console.log('role:', role);
   const [loan, setLoan] = useState({
     loanDateStart: '',
     loanPeriod: '',
-    loanDateEnd: '',
-    userLoan: {
-      userId: '',
-    },
-    bookLoan: {
-      bookId: '',
-    },
+    loanDateEnd: null,
+    loanUserId: '',
+    loanBookId: '',
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [consoleLogValue, setConsoleLogValue] = useState('');
-
-  const updateNestedState = (
-    prevState: any,
-    name: string,
-    value: string | number,
-  ) => {
-    const names = name.split('.');
-    const newState = { ...prevState };
-    let current = newState;
-    for (let i = 0; i < names.length; i++) {
-      if (i === names.length - 1) {
-        current[names[i]] = value;
-      } else {
-        current = current[names[i]] = { ...current[names[i]] };
-      }
-    }
-    return newState;
-  };
+  const { t, i18n } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLoan((prevLoan) => updateNestedState(prevLoan, name, value));
+    setLoan((prevLoan) => ({
+      ...prevLoan,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -51,25 +32,14 @@ const AddLoan = ({ role }: { role: string }) => {
       setLoan({
         loanDateStart: '',
         loanPeriod: '',
-        loanDateEnd: 'null',
-        userLoan: {
-          userId: '',
-        },
-        bookLoan: {
-          bookId: '',
-        },
+        loanDateEnd: null,
+        loanUserId: '',
+        loanBookId: '',
       });
       setErrorMessage('');
-      setConsoleLogValue(''); // Clear the console log value
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error adding loan:', error);
-      if (error.response && error.response.data) {
-        console.log('Error response:', error.response.data);
-        setConsoleLogValue(JSON.stringify(error.response.data));
-        if (error.response.status === 404) {
-          setErrorMessage(error.response.data.message);
-        }
-      }
+      setErrorMessage('Error adding loan. Please try again.');
     }
   };
 
@@ -86,21 +56,16 @@ const AddLoan = ({ role }: { role: string }) => {
 
   return (
     <div>
-      <h2 className="add-loan-text">Add Loan</h2>
+      <h2 className="add-loan-text">{t('AddLoan')}:</h2>
       {successMessage && (
-        <p className="success-message-loan">{successMessage}</p>
+        <p className="success-message-loan">{t('successLoan')}</p>
       )}
-      {errorMessage && <p className="error-message-loan">{errorMessage}</p>}
-      {consoleLogValue && (
-        <p className="error-message-loan">
-          {consoleLogValue.replace(/['"]+/g, '')}
-        </p>
-      )}
+      {errorMessage && <p className="error-message-loan">{t('error')}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="date"
           name="loanDateStart"
-          placeholder="Loan Date Start"
+          placeholder={t('loanDateStart')}
           className="loanDateStart-input"
           value={loan.loanDateStart}
           onChange={handleChange}
@@ -110,31 +75,31 @@ const AddLoan = ({ role }: { role: string }) => {
           type="number"
           name="loanPeriod"
           className="loanPeriod-input"
-          placeholder="Loan Period"
+          placeholder={t('loanPeriod')}
           value={loan.loanPeriod}
           onChange={handleChange}
           required
         />
         <input
           type="number"
-          name="userLoan.userId"
+          name="loanUserId"
           className="userId-input"
-          placeholder="User ID"
-          value={loan.userLoan.userId}
+          placeholder={t('userLoan')}
+          value={loan.loanUserId}
           onChange={handleChange}
           required
         />
         <input
           type="number"
-          name="bookLoan.bookId"
+          name="loanBookId"
           className="bookId-input"
-          placeholder="Book ID"
-          value={loan.bookLoan.bookId}
+          placeholder={t('bookLoan')}
+          value={loan.loanBookId}
           onChange={handleChange}
           required
         />
         <button className="add-loan-button" type="submit">
-          Add Loan
+          {t('AddLoan')}
         </button>
       </form>
     </div>

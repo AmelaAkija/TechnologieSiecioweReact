@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   AppBar,
   Toolbar,
@@ -8,6 +9,7 @@ import {
   createTheme,
   Tab,
   Tabs,
+  Button,
 } from '@mui/material';
 
 const theme = createTheme({
@@ -21,7 +23,6 @@ const theme = createTheme({
   },
 });
 
-// Define the color of the active tab
 const activeTabColor = {
   backgroundColor: '#FBFFEA',
   color: '#3a3a72',
@@ -30,32 +31,43 @@ const activeTabColor = {
 };
 
 const Navbar: React.FC<{ role: string }> = ({ role }) => {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const [language, setLanguage] = useState('pl');
 
-  const excludeLogin = location.pathname !== '/login';
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
 
-  if (role === 'ROLE_LIBRARIAN') {
-    return (
-      <ThemeProvider theme={theme}>
-        {excludeLogin && (
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <strong>Library System</strong>
-              </Typography>
-              <Tabs value={location.pathname}>
+  const toggleLanguage = () => {
+    const newLanguage = language === 'pl' ? 'en' : 'pl';
+    setLanguage(newLanguage);
+  };
+
+  const showTabs = location.pathname !== '/';
+
+  return (
+    <ThemeProvider theme={theme}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <strong>{t('Library System')}</strong>
+          </Typography>
+          {showTabs && (
+            <Tabs value={location.pathname}>
+              <Tab
+                label={t('catalog')}
+                value="/book-list"
+                onClick={() => navigate('/book-list')}
+                sx={{
+                  color: '#FBFFEA',
+                  ...(location.pathname === '/book-list' && activeTabColor),
+                }}
+              />
+              {role === 'ROLE_LIBRARIAN' && (
                 <Tab
-                  label="Catalog"
-                  value="/book-list"
-                  onClick={() => navigate('/book-list')}
-                  sx={{
-                    color: '#FBFFEA',
-                    ...(location.pathname === '/book-list' && activeTabColor),
-                  }}
-                />
-                <Tab
-                  label="Loans"
+                  label={t('loans')}
                   value="/loan-list"
                   onClick={() => navigate('/loan-list')}
                   sx={{
@@ -63,56 +75,28 @@ const Navbar: React.FC<{ role: string }> = ({ role }) => {
                     ...(location.pathname === '/loan-list' && activeTabColor),
                   }}
                 />
-                <Tab
-                  label="Home"
-                  value="/home"
-                  onClick={() => navigate('/home')}
-                  sx={{
-                    color: '#FBFFEA',
-                    ...(location.pathname === '/home' && activeTabColor),
-                  }}
-                />
-              </Tabs>
-            </Toolbar>
-          </AppBar>
-        )}
-      </ThemeProvider>
-    );
-  } else {
-    return (
-      <ThemeProvider theme={theme}>
-        {excludeLogin && (
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <strong>Library System</strong>
-              </Typography>
-              <Tabs value={location.pathname}>
-                <Tab
-                  label="Catalog"
-                  value="/book-list"
-                  onClick={() => navigate('/book-list')}
-                  sx={{
-                    color: '#FBFFEA',
-                    ...(location.pathname === '/book-list' && activeTabColor),
-                  }}
-                />
-                <Tab
-                  label="Home"
-                  value="/home"
-                  onClick={() => navigate('/home-reader')}
-                  sx={{
-                    color: '#FBFFEA',
-                    ...(location.pathname === '/home-reader' && activeTabColor),
-                  }}
-                />
-              </Tabs>
-            </Toolbar>
-          </AppBar>
-        )}
-      </ThemeProvider>
-    );
-  }
+              )}
+              <Tab
+                label={t('home')}
+                value={role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader'}
+                onClick={() =>
+                  navigate(role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader')
+                }
+                sx={{
+                  color: '#FBFFEA',
+                  ...(location.pathname === '/home' && activeTabColor),
+                  ...(location.pathname === '/home-reader' && activeTabColor),
+                }}
+              />
+            </Tabs>
+          )}
+          <Button color="inherit" onClick={toggleLanguage}>
+            {language === 'pl' ? 'EN' : 'PL'}
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
+  );
 };
 
 export default Navbar;

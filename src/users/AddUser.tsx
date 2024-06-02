@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './AddUser.css';
+import { useTranslation } from 'react-i18next';
 
 const AddUser = ({ role }: { role: string }) => {
   console.log('role:', role);
@@ -13,7 +14,7 @@ const AddUser = ({ role }: { role: string }) => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const { t, i18n } = useTranslation();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -60,14 +61,16 @@ const AddUser = ({ role }: { role: string }) => {
 
   return (
     <div>
-      <h2 className="add-user-text">Add User</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <h2 className="add-user-text">{t('AddUser')}:</h2>
+      {successMessage && (
+        <p className="success-message-user">{t('successUser')}</p>
+      )}
+      {errorMessage && <p className="error-message">{t('error')}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="username"
-          placeholder="Username"
+          placeholder={t('username')}
           className="username-input"
           value={user.username}
           onChange={handleChange}
@@ -77,7 +80,7 @@ const AddUser = ({ role }: { role: string }) => {
           type="password"
           name="password"
           className="password-input"
-          placeholder="Password"
+          placeholder={t('password')}
           value={user.password}
           onChange={handleChange}
           required
@@ -95,7 +98,7 @@ const AddUser = ({ role }: { role: string }) => {
           type="text"
           name="fullusername"
           className="fullusername-input"
-          placeholder="Full Name"
+          placeholder={t('fullusername')}
           value={user.fullusername}
           onChange={handleChange}
           required
@@ -104,13 +107,13 @@ const AddUser = ({ role }: { role: string }) => {
           type="text"
           name="role"
           className="role-input"
-          placeholder="Role"
+          placeholder={t('role')}
           value={user.role}
           onChange={handleChange}
           required
         />
         <button className="add-user-button" type="submit">
-          Add User
+          {t('AddUser')}
         </button>
       </form>
     </div>

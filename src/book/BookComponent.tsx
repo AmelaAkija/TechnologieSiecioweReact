@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BookType from './Book';
 import './Book.css';
 import { CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   book: BookType;
@@ -11,7 +12,7 @@ interface Props {
 const Book: React.FC<Props> = ({ book, showReserveButton }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { t, i18n } = useTranslation();
   const toggleDetails = () => {
     if (!showDetails) {
       setLoading(true);
@@ -43,18 +44,18 @@ const Book: React.FC<Props> = ({ book, showReserveButton }) => {
             {book.isbn}
           </p>
           <p>
-            <strong>Publisher:</strong> <br />
+            <strong>{t('Publisher')}</strong> <br />
             {book.publisher}
           </p>
           <p>
-            <strong>Published Year:</strong> <br /> {book.publishYear}
+            <strong>{t('Year')}</strong> <br /> {book.publishYear}
           </p>
           <p>
-            <strong>Available Copies:</strong> <br />
+            <strong>{t('Copies')}</strong> <br />
             {book.availableCopies}
           </p>
           {showReserveButton && (
-            <button className="reserve-button">Reserve</button>
+            <button className="reserve-button">{t('reserve')}</button>
           )}
         </div>
       )}

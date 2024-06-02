@@ -12,17 +12,21 @@ body {
 
 }
 
-.error-message {
+.error-message-login {
     color: #FBFFEA;
-    margin-top: 10px;
-    margin-left: 2%;
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 2vh;
+    margin-right: 20%;
+    margin-left: 1.5%;
+    margin-top: 20%;
+    position: absolute;
+    display: flex;
+    align-content: center;
 }
 .Login-form-text{
     color: #FBFFEA;
     font-size: 6vh;
-
+    position: relative;
+    left:2%;
     /*transform: translateX(27%);*/
 }
 .Login-form-input{
@@ -41,6 +45,7 @@ body {
     position: absolute;
     right: 0;
     top: 35%;
+    z-index: -1;
     transform: translateY(-50%) rotate(180deg);
 }
 /*.Login-form-input {*/
@@ -52,10 +57,13 @@ body {
 /*    margin-bottom: 15%;*/
 /*}*/
 .Login-button {
-    width: fit-content;
+    width: 20%;
+    /*display: flex;*/
+    position: relative;
     border-radius: 10px;
     background-color: #fbffea;
     color: #3a3a72;
     margin-top: 15px;
-    transform: translate(250%,10%);
+    align-content: center;
+    transform: translate(60%,20%);
 }

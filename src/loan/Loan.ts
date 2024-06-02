@@ -4,8 +4,8 @@ interface Loan {
   id: number;
   loanDateStart: string;
   loanDateEnd: string;
-  userLoan: string;
-  bookLoan: string;
+  loanUserId: number;
+  loanBookId: number;
 }
 
 export default Loan;

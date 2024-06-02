@@ -56,13 +56,12 @@
 .add-user-text {
     color: #FBFFEA;
     font-size: 6vh;
-    margin-right: 20%;
-    position: absolute;
+    margin-left: 5%;
+    position: relative;
     display: flex;
     align-content: center;
     top:5%;
-    left:33.5%;
-    transform: translate(75%,40%);
+
 }
 .add-user-text3{
     color: #FBFFEA;
@@ -93,7 +92,7 @@
     top:60%;
     border-color: #FBFFEA;
     border-radius: 10px;
-    height:5%;
+    height:fit-content;
     width: 10%;
     font-weight:bold;
     font-size: 3vh;
@@ -101,25 +100,24 @@
     color: #3a3a72;
     margin-top: 15px;
 }
-.success-message{
+.success-message-user{
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
+    margin-left: 5%;
+    margin-top: 20%;
     position: absolute;
     display: flex;
     align-content: center;
-    top:53%;
-    left:22.5%;
-    transform: translate(75%,40%);
+    /*transform: translate(75%,40%);*/
 }
 .error-message{
     color: #FBFFEA;
     font-size: 2vh;
     margin-right: 20%;
+    margin-left: 5%;
+    margin-top: 20%;
     position: absolute;
     display: flex;
     align-content: center;
-    top:53%;
-    left:31%;
-    transform: translate(85%,40%);
 }

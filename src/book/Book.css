@@ -31,7 +31,7 @@ body {
     /*margin-left: 5%;*/
 }
 .book-container {
-    width: 50%;
+    width: 90%;
     /*width:fit-content;*/
     height: fit-content;
     background-color: #FBFFEA;
@@ -48,7 +48,7 @@ body {
     flex-wrap: nowrap;
     text-align: left;
     margin-top: 2%;
-    padding: 2%;
+    padding: 3%;
     border: 1px solid #FBFFEA;
     border-radius: 5px;
     gap: 10px;
@@ -59,10 +59,15 @@ body {
 }
 .reserve-button{
     height: fit-content;
-    width: fit-content;
+    width: 10.5%;
     position: relative;
-    border-radius: 10px;
+    font-weight: bold;
+    font-size: 3vh;
+    border-radius: 5px;
     background-color: #3a3a72;
     color: #fbffea;
     margin-top: 15px;
+
+    transform: translate(30%,-130%);
+    margin-bottom: 2%;
 }

@@ -6,6 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import jwt_decode, { jwtDecode } from 'jwt-decode';
 interface LoginFormValues {
   login: string;
@@ -22,7 +23,7 @@ interface MyToken {
 function LoginForm(props: LoginFormProps) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
-
+  const { t } = useTranslation();
   const onSubmit = useCallback(
     async (
       values: LoginFormValues,
@@ -42,7 +43,11 @@ function LoginForm(props: LoginFormProps) {
           props.setRole(role);
           localStorage.setItem('role', role);
           console.log('ROLA TO: ', role);
-          navigate('/home');
+          if (role == 'ROLE_LIBRARIAN') {
+            navigate('/home');
+          } else {
+            navigate('/home-reader');
+          }
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -88,11 +93,11 @@ function LoginForm(props: LoginFormProps) {
             onSubmit={formik.handleSubmit}
             noValidate
           >
-            <h1 className="Login-form-text">Log in to the library system!</h1>
+            <h1 className="Login-form-text">{t('LoginMessage')}</h1>
             <TextField
               style={{ marginBottom: '1vh' }}
               id="login"
-              label="Username"
+              label={t('username')}
               variant="standard"
               name="login"
               className="Login-form-input"
@@ -103,7 +108,7 @@ function LoginForm(props: LoginFormProps) {
             />
             <TextField
               id="password"
-              label="Password"
+              label={t('password')}
               variant="standard"
               type="password"
               name="password"
@@ -114,7 +119,7 @@ function LoginForm(props: LoginFormProps) {
               helperText={formik.touched.password && formik.errors.password}
             />
             {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
+              <div className="error-message-login">{t('errorLogin')}</div>
             )}
             <Button
               variant="contained"
@@ -124,7 +129,7 @@ function LoginForm(props: LoginFormProps) {
               className="Login-button"
               style={{ backgroundColor: '#fbffea', color: '#3A3A72' }}
             >
-              Sign in
+              {t('SignIn')}
             </Button>
             <img src={star} alt="Star" className="star" />
           </form>

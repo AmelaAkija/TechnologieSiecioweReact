@@ -13,7 +13,7 @@ body {
     align-content: center;
     top:5%;
     left:16%;
-    transform: translate(75%,40%);
+    /*transform: translate(75%,40%);*/
 }
 
 .loan-button{
@@ -23,7 +23,7 @@ body {
     border-color: #FBFFEA;
     border-radius: 10px;
     height:5%;
-    width: 10%;
+    width: fit-content;
     font-weight:bold;
     font-size: 3vh;
     background-color: #fbffea;
@@ -37,7 +37,7 @@ body {
     border-color: #FBFFEA;
     border-radius: 10px;
     height:5%;
-    width: 10%;
+    width: fit-content;
     font-weight:bold;
     font-size: 3vh;
     background-color: #fbffea;
@@ -51,7 +51,7 @@ body {
     border-color: #FBFFEA;
     border-radius: 10px;
     height:5%;
-    width: 10%;
+    width: fit-content;
     font-weight:bold;
     font-size: 3vh;
     background-color: #fbffea;
