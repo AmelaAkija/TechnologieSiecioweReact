@@ -1,6 +1,4 @@
-import Book from '../book/Book';
-
-interface Loan {
+interface LoanType {
   id: number;
   loanDateStart: string;
   loanDateEnd: string;
@@ -8,4 +6,4 @@ interface Loan {
   loanBookId: number;
 }
 
-export default Loan;
+export default LoanType;

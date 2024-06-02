@@ -1,7 +1,8 @@
 {
   "Library System": "System Biblioteczny",
   "catalog": "katalog",
-  "loans": "wypożyczenia",
+  "loans": "Wypożyczenia",
+  "books": "Książki",
   "home": "Strona główna",
   "username": "Nazwa użytkownika",
   "role": "Rola",

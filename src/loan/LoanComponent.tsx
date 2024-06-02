@@ -8,7 +8,7 @@ interface Props {
   loan: LoanType;
 }
 
-const Loan: React.FC<Props> = ({ loan }) => {
+const LoanComponent: React.FC<Props> = ({ loan }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
@@ -66,4 +66,4 @@ const Loan: React.FC<Props> = ({ loan }) => {
   );
 };
 
-export default Loan;
+export default LoanComponent;

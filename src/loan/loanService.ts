@@ -1,5 +1,3 @@
-// loanService.ts
-
 import LoanType from './Loan';
 import axios from 'axios';
 

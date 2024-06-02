@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Book from './BookComponent';
 import { fetchBooks } from './bookService';
 import BookType from './Book';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
@@ -12,7 +13,7 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
   const [books, setBooks] = useState<BookType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     const getBooks = async () => {
       try {
@@ -43,7 +44,7 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
 
   return (
     <div className="book-list">
-      <h1 className="book-text">{title}</h1>
+      <h1 className="book-text">{t('books')}</h1>
       {books.map((book) => (
         <Book
           key={book.bookId}

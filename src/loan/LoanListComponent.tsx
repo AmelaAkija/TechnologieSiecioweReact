@@ -3,6 +3,7 @@ import LoanType from './Loan';
 import Loan from './LoanComponent';
 import { fetchLoans } from './loanService';
 import BookType from '../book/Book';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
@@ -10,6 +11,7 @@ interface Props {
 
 const LoanListComponent: React.FC<Props> = ({ title }) => {
   const [loans, setLoans] = useState<LoanType[]>([]);
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     // Fetch loans when component mounts
     async function fetchAndSetLoans() {
@@ -23,11 +25,11 @@ const LoanListComponent: React.FC<Props> = ({ title }) => {
     }
 
     fetchAndSetLoans();
-  }, []); // Empty dependency array to fetch loans only once
+  }, []);
 
   return (
     <div className="loan-list">
-      <h1 className="loan-text">Loan List</h1>
+      <h1 className="loan-text">{t('loans')}</h1>
       {loans.map((loan) => (
         <Loan key={loan.id} loan={loan} />
       ))}

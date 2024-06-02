@@ -1,7 +1,8 @@
 {
   "Library System": "Librabry System",
   "catalog": "catalog",
-  "loans": "loans",
+  "loans": "Loans",
+  "books": "Books",
   "home": "home",
   "username": "Username",
   "role": "Role",
