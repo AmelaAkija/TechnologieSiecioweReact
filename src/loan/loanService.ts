@@ -1,9 +1,9 @@
 // loanService.ts
 
-import LoanType from './Loan'; // Assuming LoanType is defined in a separate file called types.ts
+import LoanType from './Loan';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/Loan'; // Assuming the endpoint for loans is http://localhost:8080/Loan
+const API_URL = 'http://localhost:8080/Loan';
 
 export const fetchLoans = async (): Promise<LoanType[]> => {
   try {
