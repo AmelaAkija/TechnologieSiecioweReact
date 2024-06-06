@@ -2,9 +2,15 @@ import React from 'react';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../api/ApiProvider';
+import { LibraryClient } from '../api/library-client';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const apiClient = new LibraryClient();
+  apiClient.getBooks().then((response) => {
+    console.log(response);
+  });
   const { t } = useTranslation();
 
   const handleAddBook = () => {

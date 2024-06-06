@@ -7,64 +7,26 @@ import React, { useCallback, useMemo, useState } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import jwt_decode, { jwtDecode } from 'jwt-decode';
-interface LoginFormValues {
-  login: string;
-  password: string;
-}
-interface LoginFormProps {
-  setRole: (role: string) => void;
-}
-interface MyToken {
-  id: string;
-  role: string;
-}
+import { useApi } from '../api/ApiProvider';
 
-function LoginForm(props: LoginFormProps) {
+function LoginForm() {
   const navigate = useNavigate();
+  const apiClient = useApi();
   const [errorMessage, setErrorMessage] = useState('');
   const { t } = useTranslation();
   const onSubmit = useCallback(
-    async (
-      values: LoginFormValues,
-      formikHelpers: FormikHelpers<LoginFormValues>,
-    ) => {
-      console.log(values);
-      const client = axios.create({ baseURL: 'http://localhost:8080' });
-      try {
-        const response = await client.post('/Login', values);
-        console.log(response);
-
-        if (response.status === 200) {
-          const token = response.data;
-          localStorage.setItem('authToken', token);
-          const decodedToken = jwtDecode<MyToken>(token);
-          const role = decodedToken.role;
-          props.setRole(role);
-          localStorage.setItem('role', role);
-          console.log('ROLA TO: ', role);
-          if (role == 'ROLE_LIBRARIAN') {
-            navigate('/home');
-          } else {
-            navigate('/home-reader');
-          }
-        }
-      } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-          if (error.response && error.response.status === 401) {
-            setErrorMessage('Wrong username or password');
-          } else {
-            setErrorMessage('An error occurred. Please try again later.');
-          }
+    (values: { login: string; password: string }, formik: any) => {
+      apiClient.login(values).then((response) => {
+        console.log('response', response);
+        if (response.statusCode === 200) {
+          navigate('/home');
         } else {
-          setErrorMessage('An unknown error occurred.');
+          formik.setFieldError('username', 'Invalid Username or password');
         }
-      }
-      console.log('request sent');
+      });
     },
-    [navigate],
+    [apiClient, navigate],
   );
-
   const validationSchema = useMemo(
     () =>
       yup.object().shape({

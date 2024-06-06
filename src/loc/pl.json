@@ -6,6 +6,7 @@
   "home": "Strona główna",
   "username": "Nazwa użytkownika",
   "role": "Rola",
+  "remove": "Usuń",
   "password": "Hasło",
   "error": "Error podczas dodoawania! Spróbuj ponownie",
   "SignIn": "Zaloguj",

@@ -18,6 +18,7 @@
   "loanDateEnd": "Return date",
   "loanPeriod": "Loan period",
   "userLoan": "User ID",
+  "remove": "Remove",
   "successBook": "Book added successfully!",
   "successLoan": "Loan added successfully!",
   "successUser": "User added successfully!",
