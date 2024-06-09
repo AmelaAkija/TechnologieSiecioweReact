@@ -1,7 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import axios, { AxiosError } from 'axios'; // Import AxiosError
+import axios, { AxiosError } from 'axios';
 import './AddBook.css';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../api/ApiProvider';
+import Book from './Book';
 
 const AddBook = ({ role }: { role: string }) => {
   console.log('role:', role);
@@ -14,8 +16,10 @@ const AddBook = ({ role }: { role: string }) => {
     availableCopies: '',
   });
   const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string>(''); // Set type explicitly to string
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const { t, i18n } = useTranslation();
+  const clientApi = useApi();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setBook((prevBook) => ({
@@ -27,7 +31,7 @@ const AddBook = ({ role }: { role: string }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/Book/Add', book);
+      const response = await clientApi.addBook(book as unknown as Book);
       console.log('Book added successfully:', response.data);
       setSuccessMessage('Book added successfully!');
       setBook({
@@ -38,13 +42,13 @@ const AddBook = ({ role }: { role: string }) => {
         publishYear: '',
         availableCopies: '',
       });
-      setErrorMessage(''); // Reset error message
+      setErrorMessage('');
     } catch (error: any) {
       if (
         (error as AxiosError).response &&
         (error as AxiosError).response?.status === 409
       ) {
-        setErrorMessage((error as AxiosError).response?.data as string); // Cast to string
+        setErrorMessage((error as AxiosError).response?.data as string);
       } else {
         console.error('Error adding book:', error);
       }

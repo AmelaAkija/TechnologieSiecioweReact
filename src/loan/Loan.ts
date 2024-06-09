@@ -1,5 +1,5 @@
 interface LoanType {
-  id: number;
+  loanId: number;
   loanDateStart: string;
   loanDateEnd: string;
   loanUserId: number;

@@ -17,7 +17,7 @@ function LoginForm() {
   const onSubmit = useCallback(
     (values: { login: string; password: string }, formik: any) => {
       apiClient.login(values).then((response) => {
-        console.log('response', response);
+        console.log('response', response.data?.token);
         if (response.statusCode === 200) {
           navigate('/home');
         } else {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Book from './BookComponent';
-import { fetchBooks } from './bookService';
 import BookType from './Book';
+import { LibraryClient, ClientResponse } from '../api/library-client';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../api/ApiProvider';
 
 interface Props {
   title: string;
@@ -14,20 +15,20 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { t, i18n } = useTranslation();
+  const apiClient = useApi();
+
   useEffect(() => {
-    const getBooks = async () => {
-      try {
-        const books = await fetchBooks();
-        console.log('Fetched books:', books); // Add logging
-        setBooks(Array.isArray(books) ? books : []);
-      } catch (error) {
+    const fetchData = async () => {
+      const response: ClientResponse<any> = await apiClient.getBooks();
+      if (response.success) {
+        setBooks(response.data);
+      } else {
         setError('Failed to fetch books');
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
 
-    getBooks();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -36,10 +37,6 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
 
   if (error) {
     return <div>{error}</div>;
-  }
-
-  if (!Array.isArray(books)) {
-    return <div>Unexpected response format</div>;
   }
 
   return (

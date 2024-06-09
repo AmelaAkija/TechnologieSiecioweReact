@@ -37,7 +37,7 @@ const LoanComponent: React.FC<Props> = ({ loan }) => {
         onClick={toggleDetails}
         style={{ cursor: 'pointer' }}
       >
-        ID: {loan.id}
+        ID: {loan.loanId}
       </h2>
       {showDetails && (
         <div className="details-container">

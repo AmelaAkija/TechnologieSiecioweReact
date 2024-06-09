@@ -7,10 +7,10 @@ import { LibraryClient } from '../api/library-client';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const apiClient = new LibraryClient();
-  apiClient.getBooks().then((response) => {
-    console.log(response);
-  });
+  // const apiClient = useApi();
+  // apiClient.getLoans().then((response) => {
+  //   console.log(response);
+  // });
   const { t } = useTranslation();
 
   const handleAddBook = () => {

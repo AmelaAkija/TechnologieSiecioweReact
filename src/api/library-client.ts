@@ -14,6 +14,11 @@ export class LibraryClient {
     this.client = axios.create({
       baseURL: 'http://localhost:8080',
     });
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      //axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
   }
   public async login(data: {
     login: string;
@@ -24,8 +29,14 @@ export class LibraryClient {
         '/Login',
         data,
       );
-      this.client.defaults.headers.common['Authorization'] =
-        `Bearer ${response.data.token}`;
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        this.client.defaults.headers.common['Authorization'] =
+          `Bearer ${token}`;
+        //axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      }
+
       return {
         success: true,
         data: response.data,
@@ -43,6 +54,44 @@ export class LibraryClient {
   public async getBooks(): Promise<ClientResponse<any | null>> {
     try {
       const response = await this.client.get('/Book/GetAll');
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getLoans(): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.get('/Loan/GetAll');
+
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async addBook(book: Book): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.post('/Book/Add', book);
+
       return {
         success: true,
         data: response.data,
