@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Loan from './LoanComponent';
+import UserComponent from './UserComponent';
 import { LibraryClient, ClientResponse } from '../api/library-client';
-import LoanType from './Loan'; // Import your LoanType
+import UserType from './User';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 
@@ -9,25 +9,24 @@ interface Props {
   title: string;
 }
 
-const LoanListComponent: React.FC<Props> = ({ title }) => {
-  const [loans, setLoans] = useState<LoanType[]>([]);
-  const { t, i18n } = useTranslation();
+const UserListComponent: React.FC<Props> = ({ title }) => {
+  const [users, setUsers] = useState<UserType[]>([]);
+  const { t } = useTranslation();
   const [error, setError] = useState('');
   const apiClient = useApi();
 
   useEffect(() => {
     const fetchData = async () => {
-      const response: ClientResponse<any> = await apiClient.getLoans();
+      const response: ClientResponse<UserType[]> = await apiClient.getUsers();
       if (response.success) {
-        setLoans(response.data);
+        setUsers(response.data);
       } else {
-        setError('Failed to fetch loans');
+        setError(t('failedToFetchUsers'));
       }
-      // setLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [t, apiClient]);
 
   const handleDelete = async (userId: number, reloadPage: () => void) => {
     const response = await apiClient.deleteUser(userId);
@@ -39,14 +38,15 @@ const LoanListComponent: React.FC<Props> = ({ title }) => {
   };
 
   return (
-    <div className="loan-list">
-      <h1 className="details-loan"> {t('detailsLoans')}</h1>
-      <h1 className="loan-text">{t('loans')}</h1>
-      {loans.map((loan) => (
-        <Loan key={loan.loanId} loan={loan} onDelete={handleDelete} />
+    <div className="user-list">
+      <h1 className="details-user"> {t('detailsLoans')}</h1>
+      <h1 className="user-text">{t('users')}</h1>
+      {error && <p className="error">{error}</p>}
+      {users.map((user) => (
+        <UserComponent key={user.userId} user={user} onDelete={handleDelete} />
       ))}
     </div>
   );
 };
 
-export default LoanListComponent;
+export default UserListComponent;

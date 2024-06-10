@@ -15,7 +15,7 @@ const Book: React.FC<Props> = ({ book, showReserveButton }) => {
   const { t, i18n } = useTranslation();
   const toggleDetails = () => {
     if (!showDetails) {
-      setLoading(true);
+      // setLoading(true);
       setTimeout(() => {
         setLoading(false);
         setShowDetails(true);

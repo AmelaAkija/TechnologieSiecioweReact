@@ -14,24 +14,27 @@ import AddLoan from './loan/AddLoan';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import ApiProvider from './api/ApiProvider';
+import UserListComponent from './users/UserListComponent';
 function App() {
-  const role = 'ROLE_LIBRARIAN';
-
   return (
     <Router>
       <ApiProvider>
         <I18nextProvider i18n={i18n}>
-          <Navbar role={role} />
+          <Navbar />
           <Routes>
             <Route path="/" element={<LoginForm />} />
             <Route path="/home" element={<Home />} />
             <Route path="/home-reader" element={<ReaderHome />} />
-            <Route path="/add-book" element={<AddBook role={role} />} />
-            <Route path="/add-user" element={<AddUser role={role} />} />
-            <Route path="/add-loan" element={<AddLoan role={role} />} />
+            <Route path="/add-book" element={<AddBook />} />
+            <Route path="/add-user" element={<AddUser />} />
+            <Route path="/add-loan" element={<AddLoan />} />
             <Route
               path="/loan-list"
               element={<LoanListComponent title={'Loans'} />}
+            />
+            <Route
+              path="/user-list"
+              element={<UserListComponent title={'users'} />}
             />
             <Route
               path="/book-list"

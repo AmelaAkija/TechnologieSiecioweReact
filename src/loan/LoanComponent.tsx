@@ -3,21 +3,45 @@ import './Loan.css';
 import { CircularProgress } from '@mui/material';
 import LoanType from './Loan';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../api/ApiProvider';
 
 interface Props {
   loan: LoanType;
+  onDelete: (loanId: number, callback: () => void) => void;
 }
 
-const LoanComponent: React.FC<Props> = ({ loan }) => {
+const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const { t, i18n } = useTranslation();
+  const client = useApi();
+  const [error, setError] = useState<string | null>(null);
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
 
-  const reserveLoan = () => {
-    console.log('Loan reserved!');
+  const manageLoan = async () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this loan?',
+    );
+    if (!confirmed) return;
+
+    setLoading(true);
+    setError(null);
+    try {
+      console.log('Deleting user with ID:', loan.loanId);
+      const response = await client.deleteLoan(loan.loanId);
+      if (response.success) {
+        console.log('User deleted successfully');
+        window.location.reload();
+      } else {
+        setError(t('failedToDeleteUser'));
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      setError(t('failedToDeleteUser'));
+    }
+    setLoading(false);
   };
 
   const formatDate = (dateString: string | null) => {
@@ -26,8 +50,7 @@ const LoanComponent: React.FC<Props> = ({ loan }) => {
     const localDate = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000,
     );
-    const formattedDate = localDate.toISOString().split('T')[0];
-    return formattedDate;
+    return localDate.toISOString().split('T')[0];
   };
 
   return (
@@ -56,7 +79,7 @@ const LoanComponent: React.FC<Props> = ({ loan }) => {
             <strong>{t('bookLoan')}</strong> <br />
             {loan.loanBookId}
           </p>
-          <button className="remove-button" onClick={reserveLoan}>
+          <button className="remove-button" onClick={manageLoan}>
             {t('remove')}
           </button>
         </div>

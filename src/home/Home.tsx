@@ -7,10 +7,21 @@ import { LibraryClient } from '../api/library-client';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  // const apiClient = useApi();
-  // apiClient.getLoans().then((response) => {
-  //   console.log(response);
-  // });
+  const apiClient = useApi();
+
+  // apiClient
+  //   .getRole()
+  //   .then((response) => {
+  //     if (response.success) {
+  //       console.log('User role:', response.data);
+  //     } else {
+  //       console.error('Failed to get user role:', response.statusCode);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.error('Error:', err);
+  //   });
+
   const { t } = useTranslation();
 
   const handleAddBook = () => {

@@ -11,6 +11,7 @@ import {
   Tabs,
   Button,
 } from '@mui/material';
+import { useApi } from '../api/ApiProvider';
 
 const theme = createTheme({
   palette: {
@@ -30,11 +31,34 @@ const activeTabColor = {
   fontWeight: 'bold',
 };
 
-const Navbar: React.FC<{ role: string }> = ({ role }) => {
+const Navbar: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [language, setLanguage] = useState('pl');
+  const [role, setRole] = useState<string>('');
+  const client = useApi();
+
+  useEffect(() => {
+    getRole();
+  }, []);
+
+  const getRole = async () => {
+    try {
+      const response = await client.getRole();
+      if (response.success) {
+        if (typeof response.data === 'string') {
+          setRole(response.data);
+        } else {
+          console.error('Role is not a string');
+        }
+      } else {
+        console.error('Failed to fetch role');
+      }
+    } catch (error) {
+      console.error('Error fetching role:', error);
+    }
+  };
 
   useEffect(() => {
     i18n.changeLanguage(language);
@@ -45,7 +69,13 @@ const Navbar: React.FC<{ role: string }> = ({ role }) => {
     setLanguage(newLanguage);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   const showTabs = location.pathname !== '/';
+  const showLogoutButton = location.pathname !== '/';
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,15 +96,26 @@ const Navbar: React.FC<{ role: string }> = ({ role }) => {
                 }}
               />
               {role === 'ROLE_LIBRARIAN' && (
-                <Tab
-                  label={t('loans')}
-                  value="/loan-list"
-                  onClick={() => navigate('/loan-list')}
-                  sx={{
-                    color: '#FBFFEA',
-                    ...(location.pathname === '/loan-list' && activeTabColor),
-                  }}
-                />
+                <>
+                  <Tab
+                    label={t('loans')}
+                    value="/loan-list"
+                    onClick={() => navigate('/loan-list')}
+                    sx={{
+                      color: '#FBFFEA',
+                      ...(location.pathname === '/loan-list' && activeTabColor),
+                    }}
+                  />
+                  <Tab
+                    label={t('users')}
+                    value="/user-list"
+                    onClick={() => navigate('/user-list')}
+                    sx={{
+                      color: '#FBFFEA',
+                      ...(location.pathname === '/user-list' && activeTabColor),
+                    }}
+                  />
+                </>
               )}
               <Tab
                 label={t('home')}
@@ -93,6 +134,11 @@ const Navbar: React.FC<{ role: string }> = ({ role }) => {
           <Button color="inherit" onClick={toggleLanguage}>
             {language === 'pl' ? 'EN' : 'PL'}
           </Button>
+          {showLogoutButton && (
+            <Button color="inherit" onClick={handleLogout}>
+              {t('LogOut')}
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </ThemeProvider>

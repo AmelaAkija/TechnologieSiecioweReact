@@ -41,6 +41,7 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
 
   return (
     <div className="book-list">
+      <h1 className="details-book"> {t('detailsBooks')}</h1>
       <h1 className="book-text">{t('books')}</h1>
       {books.map((book) => (
         <Book

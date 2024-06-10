@@ -2,8 +2,11 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './AddLoan.css';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../api/ApiProvider';
+import User from '../users/User';
+import Loan from './Loan';
 
-const AddLoan = ({ role }: { role: string }) => {
+const AddLoan = () => {
   const [loan, setLoan] = useState({
     loanDateStart: '',
     loanPeriod: '',
@@ -14,7 +17,7 @@ const AddLoan = ({ role }: { role: string }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { t, i18n } = useTranslation();
-
+  const clientApi = useApi();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoan((prevLoan) => ({
@@ -26,7 +29,7 @@ const AddLoan = ({ role }: { role: string }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/Loan/Add', loan);
+      const response = await clientApi.addLoan(loan as unknown as Loan);
       console.log('Loan added successfully:', response.data);
       setSuccessMessage('Loan added successfully!');
       setLoan({
@@ -42,17 +45,6 @@ const AddLoan = ({ role }: { role: string }) => {
       setErrorMessage('Error adding loan. Please try again.');
     }
   };
-
-  if (role !== 'ROLE_LIBRARIAN') {
-    return (
-      <div>
-        <h2 className="add-loan-text3">Access Denied</h2>
-        <p className="add-loan-text2">
-          You do not have permission to add a loan.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div>

@@ -1,47 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ReaderHome.css';
+import { useApi } from '../../api/ApiProvider';
+import { ClientResponse } from '../../api/library-client';
+import BorrowedBook from '../../book/BorrowedBook';
+import { useTranslation } from 'react-i18next';
 
 const ReaderHome: React.FC = () => {
-  // const borrowedBooks = [
-  //   {
-  //     bookId: 1,
-  //     isbn: '9780451524935',
-  //     title: '1984',
-  //     author: 'George Orwell',
-  //     publisher: 'Signet Classic',
-  //     publishYear: 1961,
-  //     availableCopies: 4,
-  //   },
-  //   {
-  //     bookId: 2,
-  //     isbn: '9780061120084',
-  //     title: 'To Kill a Mockingbird',
-  //     author: 'Harper Lee',
-  //     publisher: 'Harper Perennial Modern Classics',
-  //     publishYear: 2006,
-  //     availableCopies: 2,
-  //   },
-  //   {
-  //     bookId: 3,
-  //     isbn: '978-0743273565',
-  //     title: 'The Great Gatsby',
-  //     author: 'F. Scott Fitzgerald',
-  //     publisher: 'Scribner',
-  //     publishYear: 2004,
-  //     availableCopies: 3,
-  //   },
-  // ];
-
+  const [books, setBooks] = useState<BorrowedBook[]>([]);
+  const apiClient = useApi();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { t, i18n } = useTranslation();
+  //
+  // useEffect(() => {
+  //   const fetchData = async (userId: string | null) => {
+  //     if (!userId) {
+  //       setError('User ID is missing');
+  //       setLoading(false);
+  //       return;
+  //     }
+  //
+  //     const response: ClientResponse<BorrowedBook[] | null> =
+  //       await apiClient.getBorrowedBooks(parseInt(userId, 10));
+  //     if (response.success && response.data !== null) {
+  //       setBooks(response.data);
+  //     } else {
+  //       setError('Failed to fetch books');
+  //     }
+  //     setLoading(false);
+  //   };
+  //
+  //   const fetchUserId = async () => {
+  //     const idResponse: ClientResponse<string | null> = await apiClient.getID();
+  //     if (idResponse.success && idResponse.data !== null) {
+  //       fetchData(idResponse.data);
+  //     } else {
+  //       setError('Failed to fetch user ID');
+  //       setLoading(false);
+  //     }
+  //   };
+  //
+  //   fetchUserId();
+  // }, []);
   return (
     <div>
       <h1 className="home-text">Welcome to Library System!</h1>
-      <div className="book-list-container">
-        {/*<BookList*/}
-        {/*  books={borrowedBooks}*/}
-        {/*  title={'Borrowed books:'}*/}
-        {/*  showReserveButton={false}*/}
-        {/*/>*/}
-      </div>
+      <div className="book-list-container"></div>
     </div>
   );
 };

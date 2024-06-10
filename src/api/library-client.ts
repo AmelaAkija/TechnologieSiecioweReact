@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { LoginDto, LoginResponseDto } from './dto/login-dto';
 import Book from '../book/Book';
+import User from '../users/User';
+import Loan from '../loan/Loan';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -69,6 +71,24 @@ export class LibraryClient {
     }
   }
 
+  public async getUsers(): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.get('/users/GetAll');
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
   public async getLoans(): Promise<ClientResponse<any | null>> {
     try {
       const response = await this.client.get('/Loan/GetAll');
@@ -92,6 +112,139 @@ export class LibraryClient {
     try {
       const response = await this.client.post('/Book/Add', book);
 
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async addUser(user: User): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.post('/users/Add', user);
+
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async addLoan(loan: Loan): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.post('/Loan/Add', loan);
+
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async deleteUser(userId: number): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.delete(`/users/deleteUser/${userId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async deleteLoan(loanId: number): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.delete(`/Loan/deleteLoan/${loanId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getRole(): Promise<ClientResponse<string | null>> {
+    try {
+      const response: AxiosResponse<string> =
+        await this.client.get('/user-role');
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  // public async getID(): Promise<ClientResponse<string | null>> {
+  //   try {
+  //     const response: AxiosResponse<string> = await this.client.get('/user-id');
+  //     return {
+  //       success: true,
+  //       data: response.data,
+  //       statusCode: response.status,
+  //     };
+  //   } catch (error) {
+  //     const axiosError = error as AxiosError<Error>;
+  //     return {
+  //       success: false,
+  //       data: null,
+  //       statusCode: axiosError.response?.status || 0,
+  //     };
+  //   }
+  // }
+
+  public async getBorrowedBooks(
+    userId: number,
+  ): Promise<ClientResponse<any[] | null>> {
+    try {
+      const response: AxiosResponse<any[]> = await this.client.get(
+        `/Loan/GetLoansByUser/${userId}`,
+      );
       return {
         success: true,
         data: response.data,

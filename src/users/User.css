@@ -3,16 +3,16 @@ body {
     padding: 0;
     background-color: #3A3A72;
 }
-.book-list {
+.user-list {
     padding: 2%;
 }
-.book-form {
+.user-form {
     padding: 2%;
 
 }
 
 
-.book-text {
+.user-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
@@ -20,18 +20,18 @@ body {
 
 }
 
-.medium-book-text {
+.medium-user-text {
     color: #3A3A72;
     font-size: 3vh;
     margin-right: 20%;
 }
-.small-book-text {
+.small-user-text {
     color: #3A3A72;
     font-size: 2vh;
-    /*margin-left: 5%;*/
+    margin-left: 5%;
 }
-.book-container {
-    width: 90%;
+.user-container {
+    width: 70%;
     /*width:fit-content;*/
     height: fit-content;
     background-color: #FBFFEA;
@@ -48,24 +48,33 @@ body {
     flex-wrap: nowrap;
     text-align: left;
     margin-top: 2%;
-    padding: 3%;
+    padding: 2%;
     border: 1px solid #FBFFEA;
     border-radius: 5px;
-    gap: 10px;
-}
-.details-book{
-    color: #FBFFEA;
-    position: absolute;
-    font-size: 3vh;
-    font-weight: bold;
-    margin-right: 5%;
-    margin-left: 60%;
+    gap: 10%;
 }
 .details-container p {
     flex: 1;
     margin: 0;
 }
-.reserve-button{
+.details-user{
+    color: #FBFFEA;
+    position: absolute;
+    font-size: 3vh;
+    font-weight: bold;
+    margin-right: 0%;
+    margin-left: 43%;
+}
+/*.remove-button{*/
+/*    width: fit-content;*/
+/*    position: relative;*/
+/*    border-radius: 10px;*/
+/*    background-color: #3a3a72;*/
+/*    color: #fbffea;*/
+/*    margin-top: 15px;*/
+/*}*/
+
+.remove-button{
     height: fit-content;
     width: 10.5%;
     position: relative;

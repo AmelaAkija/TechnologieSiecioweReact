@@ -2,9 +2,11 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './AddUser.css';
 import { useTranslation } from 'react-i18next';
+import Book from '../book/Book';
+import { useApi } from '../api/ApiProvider';
+import User from './User';
 
-const AddUser = ({ role }: { role: string }) => {
-  console.log('role:', role);
+const AddUser = () => {
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -15,6 +17,7 @@ const AddUser = ({ role }: { role: string }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { t, i18n } = useTranslation();
+  const clientApi = useApi();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -26,10 +29,7 @@ const AddUser = ({ role }: { role: string }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        'http://localhost:8080/users/Add',
-        user,
-      );
+      const response = await clientApi.addUser(user as unknown as User);
       console.log('User added successfully:', response.data);
       setSuccessMessage('User added successfully!');
       setUser({
@@ -47,17 +47,6 @@ const AddUser = ({ role }: { role: string }) => {
       }
     }
   };
-
-  if (role !== 'ROLE_LIBRARIAN') {
-    return (
-      <div>
-        <h2 className="add-user-text3">Access Denied</h2>
-        <p className="add-user-text2">
-          You do not have permission to add a user.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div>

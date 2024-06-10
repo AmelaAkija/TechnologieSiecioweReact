@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 import Book from './Book';
 
-const AddBook = ({ role }: { role: string }) => {
-  console.log('role:', role);
+const AddBook = () => {
   const [book, setBook] = useState({
     isbn: '',
     title: '',
@@ -55,16 +54,6 @@ const AddBook = ({ role }: { role: string }) => {
     }
   };
 
-  if (role !== 'ROLE_LIBRARIAN') {
-    return (
-      <div>
-        <h2 className="add-book-text3">Access Denied</h2>
-        <p className="add-book-text2">
-          You do not have permission to add a book.
-        </p>
-      </div>
-    );
-  }
   return (
     <div>
       <h2 className="add-book-text"> {t('AddBook')}:</h2>

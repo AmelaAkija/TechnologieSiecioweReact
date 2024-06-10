@@ -19,7 +19,26 @@ function LoginForm() {
       apiClient.login(values).then((response) => {
         console.log('response', response.data?.token);
         if (response.statusCode === 200) {
-          navigate('/home');
+          apiClient
+            .getRole()
+            .then((roleResponse) => {
+              if (roleResponse.success) {
+                if (roleResponse.data === 'ROLE_LIBRARIAN') {
+                  navigate('/home');
+                } else {
+                  navigate('/home-reader');
+                }
+                console.log('User role:', roleResponse.data);
+              } else {
+                console.error(
+                  'Failed to get user role:',
+                  roleResponse.statusCode,
+                );
+              }
+            })
+            .catch((err) => {
+              console.error('Error:', err);
+            });
         } else {
           formik.setFieldError('username', 'Invalid Username or password');
         }
