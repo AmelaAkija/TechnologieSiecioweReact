@@ -15,6 +15,8 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import ApiProvider from './api/ApiProvider';
 import UserListComponent from './users/UserListComponent';
+import UpdateBook from './book/UpdateBook';
+import UpdateUser from './users/UpdateUser';
 function App() {
   return (
     <Router>
@@ -26,7 +28,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/home-reader" element={<ReaderHome />} />
             <Route path="/add-book" element={<AddBook />} />
+            <Route path="/update-book" element={<UpdateBook />} />
             <Route path="/add-user" element={<AddUser />} />
+            <Route path="/update-user" element={<UpdateUser />} />
             <Route path="/add-loan" element={<AddLoan />} />
             <Route
               path="/loan-list"

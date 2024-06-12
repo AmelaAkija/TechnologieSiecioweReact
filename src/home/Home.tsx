@@ -35,6 +35,12 @@ const Home: React.FC = () => {
   const handleAddLoan = () => {
     navigate('/add-loan');
   };
+  const handleUpdateBook = () => {
+    navigate('/update-book');
+  };
+  const handleUpdateUser = () => {
+    navigate('/update-user');
+  };
 
   return (
     <div>
@@ -48,6 +54,12 @@ const Home: React.FC = () => {
         </button>
         <button className="loan-button" onClick={handleAddLoan}>
           {t('AddLoan')}
+        </button>
+        <button className="book-button-update" onClick={handleUpdateBook}>
+          {t('UpdateBook')}
+        </button>
+        <button className="user-button-update" onClick={handleUpdateUser}>
+          {t('UpdateUser')}
         </button>
       </div>
     </div>

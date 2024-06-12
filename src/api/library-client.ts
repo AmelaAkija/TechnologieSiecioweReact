@@ -320,4 +320,89 @@ export class LibraryClient {
       };
     }
   }
+
+  public async getBookById(
+    bookId: number,
+  ): Promise<ClientResponse<Book | null>> {
+    try {
+      const response = await this.client.get(`/Book/SearchBy/ID/${bookId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getUserById(
+    userId: number,
+  ): Promise<ClientResponse<User | null>> {
+    try {
+      const response = await this.client.get(`/users/SearchBy/ID/${userId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async updateBook(
+    bookId: number,
+    book: Book,
+  ): Promise<ClientResponse<string | null>> {
+    try {
+      const response = await this.client.put(
+        `/Book/updateBook/${bookId}`,
+        book,
+      );
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async updateUser(
+    userId: number,
+    user: User,
+  ): Promise<ClientResponse<string | null>> {
+    try {
+      const response = await this.client.put(`/users/update/${userId}`, user);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
 }

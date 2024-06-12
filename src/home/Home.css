@@ -44,10 +44,38 @@ body {
     color: #3a3a72;
     margin-top: 15px;
 }
+.book-button-update{
+    position: absolute;
+    left: 45%;
+    top:60%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: fit-content;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
 .user-button{
     position: absolute;
     left: 65%;
     top:40%;
+    border-color: #FBFFEA;
+    border-radius: 10px;
+    height:5%;
+    width: fit-content;
+    font-weight:bold;
+    font-size: 3vh;
+    background-color: #fbffea;
+    color: #3a3a72;
+    margin-top: 15px;
+}
+.user-button-update{
+    position: absolute;
+    left: 65%;
+    top:60%;
     border-color: #FBFFEA;
     border-radius: 10px;
     height:5%;

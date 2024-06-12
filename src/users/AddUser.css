@@ -121,3 +121,14 @@
     display: flex;
     align-content: center;
 }
+.choose-user{
+    height: 5.7%;
+    width: 30%;
+    position: absolute;
+    font-size: 2vh;
+    border-radius: 5px;
+    background-color: #FBFFEA;
+    color: #3a3a72;
+    margin-top: 7%;
+    margin-left: 5%;
+}
