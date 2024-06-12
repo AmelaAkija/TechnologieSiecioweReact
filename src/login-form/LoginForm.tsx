@@ -23,6 +23,7 @@ function LoginForm() {
             .getRole()
             .then((roleResponse) => {
               if (roleResponse.success) {
+                localStorage.setItem('role', roleResponse.data || '');
                 if (roleResponse.data === 'ROLE_LIBRARIAN') {
                   navigate('/home');
                 } else {

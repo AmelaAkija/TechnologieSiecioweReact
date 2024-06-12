@@ -36,29 +36,33 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [language, setLanguage] = useState('pl');
-  const [role, setRole] = useState<string>('');
+  // const [role, setRole] = useState<string>('');
   const client = useApi();
 
-  useEffect(() => {
-    getRole();
-  }, []);
+  // useEffect(() => {
+  //   getRole();
+  // }, []);
 
-  const getRole = async () => {
-    try {
-      const response = await client.getRole();
-      if (response.success) {
-        if (typeof response.data === 'string') {
-          setRole(response.data);
-        } else {
-          console.error('Role is not a string');
-        }
-      } else {
-        console.error('Failed to fetch role');
-      }
-    } catch (error) {
-      console.error('Error fetching role:', error);
-    }
-  };
+  // const getRole = async () => {
+  //   try {
+  //     const response = await client.getRole();
+  //     if (response.success) {
+  //       if (typeof response.data === 'string') {
+  //         setRole(response.data);
+  //         console.log('role:', response.data);
+  //       } else {
+  //         console.error('Role is not a string');
+  //       }
+  //     } else {
+  //       console.error('Failed to fetch role');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching role:', error);
+  //   }
+  // };
+  const [role, setRole] = useState<string>(() => {
+    return localStorage.getItem('role') || '';
+  });
 
   useEffect(() => {
     i18n.changeLanguage(language);
@@ -71,6 +75,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/');
   };
 

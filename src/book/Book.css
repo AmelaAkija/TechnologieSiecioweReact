@@ -59,13 +59,67 @@ body {
     font-size: 3vh;
     font-weight: bold;
     margin-right: 5%;
-    margin-left: 60%;
+    margin-left: 75%;
 }
 .details-container p {
     flex: 1;
     margin: 0;
 }
 .reserve-button{
+    height: fit-content;
+    width: 10.5%;
+    position: relative;
+    font-weight: bold;
+    font-size: 3vh;
+    border-radius: 5px;
+    background-color: #3a3a72;
+    color: #fbffea;
+    margin-top: 15px;
+
+    transform: translate(30%,-130%);
+    margin-bottom: 2%;
+}
+.searchInput{
+    height: 5%;
+    width: 40%;
+    position: absolute;
+    font-size: 3vh;
+    border-radius: 5px;
+    background-color: #FBFFEA;
+    color: #3a3a72;
+    margin-top: 2%;
+    margin-left: 22%;
+}
+.searchType{
+    height: 5.7%;
+    width: 5%;
+    position: absolute;
+    font-size: 2vh;
+    border-radius: 5px;
+    background-color: #FBFFEA;
+    color: #3a3a72;
+    margin-top: 2%;
+    margin-left: 17%;
+}
+.found-text{
+    color: #FBFFEA;
+    font-size: 3vh;
+    margin-right: 20%;
+}
+.search-button{
+    height: 5.5%;
+    width: 5%;
+    position: absolute;
+    font-weight: bold;
+    font-size: 2vh;
+    border-radius: 5px;
+    border-color: #FBFFEA;
+    background-color: #3a3a72;
+    color: #FBFFEA;
+    margin-top: 2.05%;
+    margin-left: 62.6%;
+}
+.remove-button{
     height: fit-content;
     width: 10.5%;
     position: relative;

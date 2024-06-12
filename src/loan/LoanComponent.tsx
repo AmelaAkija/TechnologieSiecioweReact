@@ -19,27 +19,25 @@ const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
-
+  const confirmationMessage = t('confirm-loan');
   const manageLoan = async () => {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this loan?',
-    );
+    const confirmed = window.confirm(confirmationMessage);
     if (!confirmed) return;
 
     setLoading(true);
     setError(null);
     try {
-      console.log('Deleting user with ID:', loan.loanId);
+      console.log('Deleting loan with ID:', loan.loanId);
       const response = await client.deleteLoan(loan.loanId);
       if (response.success) {
-        console.log('User deleted successfully');
+        console.log('loan deleted successfully');
         window.location.reload();
       } else {
-        setError(t('failedToDeleteUser'));
+        setError(t('failedToDeleteLoan'));
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
-      setError(t('failedToDeleteUser'));
+      console.error('Error deleting loan:', error);
+      setError(t('failedToDeleteLoan'));
     }
     setLoading(false);
   };

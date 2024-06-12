@@ -3,6 +3,7 @@ import { LoginDto, LoginResponseDto } from './dto/login-dto';
 import Book from '../book/Book';
 import User from '../users/User';
 import Loan from '../loan/Loan';
+import book from '../book/Book';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -108,6 +109,48 @@ export class LibraryClient {
     }
   }
 
+  public async getBooksByTitle(
+    title: string,
+  ): Promise<ClientResponse<any[] | null>> {
+    try {
+      const response = await this.client.get(`/Book/SearchBy/title/${title}`);
+
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getBooksByAuthor(
+    author: string,
+  ): Promise<ClientResponse<any[] | null>> {
+    try {
+      const response = await this.client.get(`/Book/SearchBy/author/${author}`);
+
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
   public async addBook(book: Book): Promise<ClientResponse<any | null>> {
     try {
       const response = await this.client.post('/Book/Add', book);
@@ -186,6 +229,24 @@ export class LibraryClient {
   public async deleteLoan(loanId: number): Promise<ClientResponse<any | null>> {
     try {
       const response = await this.client.delete(`/Loan/deleteLoan/${loanId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async deleteBook(bookId: number): Promise<ClientResponse<any | null>> {
+    try {
+      const response = await this.client.delete(`/Book/deleteBook/${bookId}`);
       return {
         success: true,
         data: response.data,
