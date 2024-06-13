@@ -17,6 +17,7 @@ import ApiProvider from './api/ApiProvider';
 import UserListComponent from './users/UserListComponent';
 import UpdateBook from './book/UpdateBook';
 import UpdateUser from './users/UpdateUser';
+import UpdateLoan from './loan/UpdateLoan';
 function App() {
   return (
     <Router>
@@ -28,9 +29,10 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/home-reader" element={<ReaderHome />} />
             <Route path="/add-book" element={<AddBook />} />
-            <Route path="/update-book" element={<UpdateBook />} />
             <Route path="/add-user" element={<AddUser />} />
             <Route path="/update-user" element={<UpdateUser />} />
+            <Route path="/update-loan" element={<UpdateLoan />} />
+            <Route path="/update-book" element={<UpdateBook />} />
             <Route path="/add-loan" element={<AddLoan />} />
             <Route
               path="/loan-list"

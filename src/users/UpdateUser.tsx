@@ -1,8 +1,8 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
-import User from './User'; // Adjust the import path based on your project structure
-import './AddUser.css'; // Create and style the CSS file accordingly
+import User from './User';
+import './AddUser.css';
 
 const UpdateUser = () => {
   const [userList, setUserList] = useState<User[]>([]);

@@ -4,6 +4,7 @@ import Book from '../book/Book';
 import User from '../users/User';
 import Loan from '../loan/Loan';
 import book from '../book/Book';
+import BorrowedBook from '../book/BorrowedBook';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -361,6 +362,26 @@ export class LibraryClient {
     }
   }
 
+  public async getLoanById(
+    loanId: number,
+  ): Promise<ClientResponse<Loan | null>> {
+    try {
+      const response = await this.client.get(`/Loan/SearchBy/ID/${loanId}`);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
   public async updateBook(
     bookId: number,
     book: Book,
@@ -391,6 +412,47 @@ export class LibraryClient {
   ): Promise<ClientResponse<string | null>> {
     try {
       const response = await this.client.put(`/users/update/${userId}`, user);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async updateLoan(
+    loanId: number,
+    loan: Loan,
+  ): Promise<ClientResponse<string | null>> {
+    try {
+      const response = await this.client.put(`/Loan/return/${loanId}`, loan);
+      return {
+        success: true,
+        data: response.data,
+        statusCode: response.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      return {
+        success: false,
+        data: null,
+        statusCode: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getUserLoans(): Promise<
+    ClientResponse<Array<BorrowedBook> | null>
+  > {
+    try {
+      const response = await this.client.get(`/Loan/GetUserLoans`);
       return {
         success: true,
         data: response.data,

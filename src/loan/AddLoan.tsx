@@ -1,9 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
 import './AddLoan.css';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
-import User from '../users/User';
 import Loan from './Loan';
 
 const AddLoan = () => {
@@ -16,8 +14,9 @@ const AddLoan = () => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const clientApi = useApi();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoan((prevLoan) => ({
@@ -31,7 +30,7 @@ const AddLoan = () => {
     try {
       const response = await clientApi.addLoan(loan as unknown as Loan);
       console.log('Loan added successfully:', response.data);
-      setSuccessMessage('Loan added successfully!');
+      setSuccessMessage(t('successLoan'));
       setLoan({
         loanDateStart: '',
         loanPeriod: '',
@@ -42,17 +41,19 @@ const AddLoan = () => {
       setErrorMessage('');
     } catch (error) {
       console.error('Error adding loan:', error);
-      setErrorMessage('Error adding loan. Please try again.');
+      setErrorMessage(t('error'));
     }
   };
+
+  const currentDate = new Date().toISOString().split('T')[0];
 
   return (
     <div>
       <h2 className="add-loan-text">{t('AddLoan')}:</h2>
       {successMessage && (
-        <p className="success-message-loan">{t('successLoan')}</p>
+        <p className="success-message-loan">{successMessage}</p>
       )}
-      {errorMessage && <p className="error-message-loan">{t('error')}</p>}
+      {errorMessage && <p className="error-message-loan">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="date"
@@ -61,6 +62,8 @@ const AddLoan = () => {
           className="loanDateStart-input"
           value={loan.loanDateStart}
           onChange={handleChange}
+          min={currentDate}
+          max={currentDate}
           required
         />
         <input

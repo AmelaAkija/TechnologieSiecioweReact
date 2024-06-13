@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Book from './BookComponent';
 import BookType from './Book';
-import { LibraryClient, ClientResponse } from '../api/library-client';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 
@@ -18,69 +17,7 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
   const apiClient = useApi();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchType, setSearchType] = useState<'title' | 'author' | ''>('');
-  const [searchedBooks, setSearchedBooks] = useState<BookType[]>([]);
-  const [searched, setSearched] = useState(false);
 
-  // Function to fetch books based on search criteria
-  const fetchBooks = async () => {
-    setLoading(true);
-    try {
-      let response: ClientResponse<any>;
-
-      if (searchType === 'title') {
-        response = await apiClient.getBooksByTitle(searchQuery);
-      } else if (searchType === 'author') {
-        response = await apiClient.getBooksByAuthor(searchQuery);
-      } else {
-        response = await apiClient.getBooks(); // Fetch all books
-      }
-
-      if (response.success) {
-        setSearchedBooks(response.data || []);
-        setError('');
-      } else {
-        setError('Failed to fetch books');
-      }
-    } catch (error) {
-      setError('Error fetching books');
-    } finally {
-      setLoading(false);
-      setSearched(true);
-    }
-  };
-
-  // Function to handle search button click
-  const handleSearch = async () => {
-    if (searchQuery.trim() !== '') {
-      await fetchBooks();
-    } else {
-      setSearchedBooks([]);
-      setSearched(true);
-    }
-  };
-
-  // Function to handle input change in search box
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
-
-  // Function to handle select change for search type
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchType(event.target.value as 'title' | 'author' | '');
-    setSearched(false); // Reset searched state when changing search type
-  };
-
-  // Event handler for deleting a loan (assuming it's relevant to book loans)
-  const handleDelete = async (loanId: number, reloadPage: () => void) => {
-    const response = await apiClient.deleteLoan(loanId);
-    if (response.success) {
-      reloadPage();
-    } else {
-      setError(t('failedToDeleteBook'));
-    }
-  };
-
-  // useEffect to fetch all books when component mounts or when searchType changes to ''
   useEffect(() => {
     const fetchAllBooks = async () => {
       setLoading(true);
@@ -99,13 +36,45 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
       }
     };
 
-    if (searchType === '') {
-      fetchAllBooks();
-    }
-  }, [searchType]);
+    fetchAllBooks();
+  }, [apiClient]);
 
-  // Determine which set of books to render based on search state
-  const booksToRender = searched ? searchedBooks : books;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchType(event.target.value as 'title' | 'author' | '');
+  };
+
+  const handleDelete = async (loanId: number, reloadPage: () => void) => {
+    const response = await apiClient.deleteLoan(loanId);
+    if (response.success) {
+      reloadPage();
+    } else {
+      setError(t('failedToDeleteBook'));
+    }
+  };
+
+  const filterBooks = () => {
+    if (searchQuery.trim() === '') return books;
+
+    return books.filter((book) => {
+      const query = searchQuery.toLowerCase();
+      if (searchType === 'title') {
+        return book.title.toLowerCase().includes(query);
+      } else if (searchType === 'author') {
+        return book.author.toLowerCase().includes(query);
+      } else {
+        return (
+          book.title.toLowerCase().includes(query) ||
+          book.author.toLowerCase().includes(query)
+        );
+      }
+    });
+  };
+
+  const filteredBooks = filterBooks();
 
   return (
     <div className="book-list">
@@ -114,28 +83,25 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
         className="searchInput"
         value={searchQuery}
         onChange={handleInputChange}
-        placeholder="Search by title..."
+        placeholder={t('findBy')}
       />
       <select
         className="searchType"
         value={searchType}
         onChange={handleSelectChange}
       >
-        <option value="">All</option>
-        <option value="title">Title</option>
-        <option value="author">Author</option>
+        <option value="">{t('all')}</option>
+        <option value="title">{t('title')}</option>
+        <option value="author">{t('author')}</option>
       </select>
-      <button className="search-button" onClick={handleSearch}>
-        Search
-      </button>
       <h1 className="details-book">{t('detailsBooks')}</h1>
       <h1 className="book-text">{t('books')}</h1>
-      {loading && <div>Loading...</div>}
+      {loading && <div>{t('loading')}</div>}
       {error && <div>{error}</div>}
-      {searched && booksToRender.length === 0 && (
-        <div className="found-text">No books found</div>
+      {filteredBooks.length === 0 && !loading && (
+        <div className="found-text">{t('noBooksFound')}</div>
       )}
-      {booksToRender.map((book) => (
+      {filteredBooks.map((book) => (
         <Book
           key={book.bookId}
           book={book}

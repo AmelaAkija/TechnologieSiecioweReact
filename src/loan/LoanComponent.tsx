@@ -74,6 +74,9 @@ const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
             <strong>{t('userLoan')}</strong> <br /> {loan.loanUserId}
           </p>
           <p>
+            <strong>{t('period')}</strong> <br /> {loan.loanPeriod}
+          </p>
+          <p>
             <strong>{t('bookLoan')}</strong> <br />
             {loan.loanBookId}
           </p>

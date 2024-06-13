@@ -4,9 +4,10 @@ import { useApi } from '../../api/ApiProvider';
 import { ClientResponse } from '../../api/library-client';
 import BorrowedBook from '../../book/BorrowedBook';
 import { useTranslation } from 'react-i18next';
+import BorrowedBookComponent from '../../book/BorrowedBookComponent';
 
 const ReaderHome: React.FC = () => {
-  const [books, setBooks] = useState<BorrowedBook[]>([]);
+  const [borrows, setBorrows] = useState<BorrowedBook[]>([]);
   const apiClient = useApi();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -42,10 +43,36 @@ const ReaderHome: React.FC = () => {
   //
   //   fetchUserId();
   // }, []);
+  useEffect(() => {
+    const fetchAllBooks = async () => {
+      setLoading(true);
+      try {
+        const response = await apiClient.getUserLoans();
+        if (response.success) {
+          setBorrows(response.data || []);
+          setError('');
+        } else {
+          setError('Failed to fetch borrows');
+        }
+      } catch (error) {
+        setError('Error fetching borrows');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllBooks();
+  }, [apiClient]);
+
   return (
     <div>
       <h1 className="home-text">Welcome to Library System!</h1>
-      <div className="book-list-container"></div>
+      <div className="book-list-container">
+        {loading && <div>{t('loading')}</div>}
+        {borrows.map((b) => (
+          <BorrowedBookComponent borrowedBook={b} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -21,6 +21,10 @@ const theme = createTheme({
     background: {
       default: '#FBFFEA',
     },
+    text: {
+      primary: '#3A3A72',
+      secondary: '#FFFFFF',
+    },
   },
 });
 
@@ -36,30 +40,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [language, setLanguage] = useState('pl');
-  // const [role, setRole] = useState<string>('');
   const client = useApi();
-
-  // useEffect(() => {
-  //   getRole();
-  // }, []);
-
-  // const getRole = async () => {
-  //   try {
-  //     const response = await client.getRole();
-  //     if (response.success) {
-  //       if (typeof response.data === 'string') {
-  //         setRole(response.data);
-  //         console.log('role:', response.data);
-  //       } else {
-  //         console.error('Role is not a string');
-  //       }
-  //     } else {
-  //       console.error('Failed to fetch role');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching role:', error);
-  //   }
-  // };
   const [role, setRole] = useState<string>(() => {
     return localStorage.getItem('role') || '';
   });
@@ -82,6 +63,71 @@ const Navbar: React.FC = () => {
   const showTabs = location.pathname !== '/';
   const showLogoutButton = location.pathname !== '/';
 
+  const tabs = [
+    <Tab
+      key="catalog"
+      label={t('catalog')}
+      value="/book-list"
+      onClick={() => navigate('/book-list')}
+      sx={{
+        color: location.pathname === '/book-list' ? '#3a3a72' : '#FBFFEA',
+        '&.Mui-selected': {
+          color: '#3a3a72',
+        },
+        ...(location.pathname === '/book-list' && activeTabColor),
+      }}
+    />,
+    ...(role === 'ROLE_LIBRARIAN'
+      ? [
+          <Tab
+            key="loans"
+            label={t('loans')}
+            value="/loan-list"
+            onClick={() => navigate('/loan-list')}
+            sx={{
+              color: location.pathname === '/loan-list' ? '#3a3a72' : '#FBFFEA',
+              '&.Mui-selected': {
+                color: '#3a3a72',
+              },
+              ...(location.pathname === '/loan-list' && activeTabColor),
+            }}
+          />,
+          <Tab
+            key="users"
+            label={t('users')}
+            value="/user-list"
+            onClick={() => navigate('/user-list')}
+            sx={{
+              color: location.pathname === '/user-list' ? '#3a3a72' : '#FBFFEA',
+              '&.Mui-selected': {
+                color: '#3a3a72',
+              },
+              ...(location.pathname === '/user-list' && activeTabColor),
+            }}
+          />,
+        ]
+      : []),
+    <Tab
+      key="home"
+      label={t('home')}
+      value={role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader'}
+      onClick={() =>
+        navigate(role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader')
+      }
+      sx={{
+        color:
+          location.pathname === '/home' || location.pathname === '/home-reader'
+            ? '#3a3a72'
+            : '#FBFFEA',
+        '&.Mui-selected': {
+          color: '#3a3a72',
+        },
+        ...(location.pathname === '/home' && activeTabColor),
+        ...(location.pathname === '/home-reader' && activeTabColor),
+      }}
+    />,
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -90,50 +136,12 @@ const Navbar: React.FC = () => {
             <strong>{t('Library System')}</strong>
           </Typography>
           {showTabs && (
-            <Tabs value={location.pathname}>
-              <Tab
-                label={t('catalog')}
-                value="/book-list"
-                onClick={() => navigate('/book-list')}
-                sx={{
-                  color: '#FBFFEA',
-                  ...(location.pathname === '/book-list' && activeTabColor),
-                }}
-              />
-              {role === 'ROLE_LIBRARIAN' && (
-                <>
-                  <Tab
-                    label={t('loans')}
-                    value="/loan-list"
-                    onClick={() => navigate('/loan-list')}
-                    sx={{
-                      color: '#FBFFEA',
-                      ...(location.pathname === '/loan-list' && activeTabColor),
-                    }}
-                  />
-                  <Tab
-                    label={t('users')}
-                    value="/user-list"
-                    onClick={() => navigate('/user-list')}
-                    sx={{
-                      color: '#FBFFEA',
-                      ...(location.pathname === '/user-list' && activeTabColor),
-                    }}
-                  />
-                </>
-              )}
-              <Tab
-                label={t('home')}
-                value={role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader'}
-                onClick={() =>
-                  navigate(role === 'ROLE_LIBRARIAN' ? '/home' : '/home-reader')
-                }
-                sx={{
-                  color: '#FBFFEA',
-                  ...(location.pathname === '/home' && activeTabColor),
-                  ...(location.pathname === '/home-reader' && activeTabColor),
-                }}
-              />
+            <Tabs
+              value={location.pathname}
+              textColor="secondary"
+              indicatorColor="primary"
+            >
+              {tabs}
             </Tabs>
           )}
           <Button color="inherit" onClick={toggleLanguage}>
@@ -141,7 +149,7 @@ const Navbar: React.FC = () => {
           </Button>
           {showLogoutButton && (
             <Button color="inherit" onClick={handleLogout}>
-              {t('LogOut')}
+              {t('logOut')}
             </Button>
           )}
         </Toolbar>

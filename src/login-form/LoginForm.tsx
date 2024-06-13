@@ -29,6 +29,9 @@ function LoginForm() {
                 } else {
                   navigate('/home-reader');
                 }
+                setTimeout(() => {
+                  window.location.reload();
+                }, 10);
                 console.log('User role:', roleResponse.data);
               } else {
                 console.error(
