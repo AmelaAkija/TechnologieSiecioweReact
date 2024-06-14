@@ -43,7 +43,10 @@ const LoanListComponent: React.FC<Props> = ({ title }) => {
       <h1 className="details-loan"> {t('detailsLoans')}</h1>
       <h1 className="loan-text">{t('loans')}</h1>
       {loans.map((loan) => (
-        <Loan key={loan.loanId} loan={loan} onDelete={handleDelete} />
+        <div key={loan.loanId} className="loan-container">
+          <Loan loan={loan} onDelete={handleDelete} />
+          <div className="details-loan">{t('detailsLoans')}</div>
+        </div>
       ))}
     </div>
   );

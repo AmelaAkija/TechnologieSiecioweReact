@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './ReaderHome.css';
-import { useApi } from '../../api/ApiProvider';
-import { ClientResponse } from '../../api/library-client';
-import BorrowedBook from '../../book/BorrowedBook';
+import { useApi } from '../api/ApiProvider';
+import { ClientResponse } from '../api/library-client';
+import BorrowedBook from '../book/BorrowedBook';
 import { useTranslation } from 'react-i18next';
-import BorrowedBookComponent from '../../book/BorrowedBookComponent';
+import BorrowedBookComponent from '../book/BorrowedBookComponent';
 
 const ReaderHome: React.FC = () => {
   const [borrows, setBorrows] = useState<BorrowedBook[]>([]);

@@ -80,7 +80,7 @@ const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
             <strong>{t('bookLoan')}</strong> <br />
             {loan.loanBookId}
           </p>
-          <button className="remove-button" onClick={manageLoan}>
+          <button className="remove-button-loan" onClick={manageLoan}>
             {t('remove')}
           </button>
         </div>

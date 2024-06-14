@@ -7,7 +7,7 @@ import LoanListComponent from './loan/LoanListComponent';
 
 import Home from './home/Home';
 import mockLoans from './loan/mockDataLoan';
-import ReaderHome from './READER/reader-home/ReaderHome';
+import ReaderHome from './home/ReaderHome';
 import AddBook from './book/AddBook';
 import AddUser from './users/AddUser';
 import AddLoan from './loan/AddLoan';
@@ -18,6 +18,7 @@ import UserListComponent from './users/UserListComponent';
 import UpdateBook from './book/UpdateBook';
 import UpdateUser from './users/UpdateUser';
 import UpdateLoan from './loan/UpdateLoan';
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <Router>
@@ -52,6 +53,7 @@ function App() {
               }
             />
           </Routes>
+          <Toaster position="bottom-center" reverseOrder={false} />
         </I18nextProvider>
       </ApiProvider>
     </Router>

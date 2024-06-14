@@ -5,59 +5,79 @@ import star from '../star.svg';
 import { Formik, FormikHelpers } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import * as yup from 'yup';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
+import toast, { Toaster } from 'react-hot-toast';
+import axios, { AxiosError } from 'axios';
+
+// Type guard to check if the error is an AxiosError
+function isAxiosError(error: unknown): error is AxiosError {
+  return (error as AxiosError).isAxiosError !== undefined;
+}
 
 function LoginForm() {
   const navigate = useNavigate();
   const apiClient = useApi();
   const [errorMessage, setErrorMessage] = useState('');
   const { t } = useTranslation();
+  const message = t('wrongCredentials');
+  const passwordMessage = t('shortPassword');
+  const required = t('required');
+  const otherError = t('unknown');
   const onSubmit = useCallback(
-    (values: { login: string; password: string }, formik: any) => {
-      apiClient.login(values).then((response) => {
-        console.log('response', response.data?.token);
+    async (values: { login: string; password: string }, formik: any) => {
+      try {
+        const response = await apiClient.login(values);
         if (response.statusCode === 200) {
-          apiClient
-            .getRole()
-            .then((roleResponse) => {
-              if (roleResponse.success) {
-                localStorage.setItem('role', roleResponse.data || '');
-                if (roleResponse.data === 'ROLE_LIBRARIAN') {
-                  navigate('/home');
-                } else {
-                  navigate('/home-reader');
-                }
-                setTimeout(() => {
-                  window.location.reload();
-                }, 10);
-                console.log('User role:', roleResponse.data);
-              } else {
-                console.error(
-                  'Failed to get user role:',
-                  roleResponse.statusCode,
-                );
-              }
-            })
-            .catch((err) => {
-              console.error('Error:', err);
-            });
+          const roleResponse = await apiClient.getRole();
+          if (roleResponse.success) {
+            localStorage.setItem('role', roleResponse.data || '');
+            if (roleResponse.data === 'ROLE_LIBRARIAN') {
+              navigate('/home');
+            } else {
+              navigate('/home-reader');
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 10);
+          } else {
+            console.error('Failed to get user role:', roleResponse.statusCode);
+          }
+        } else if (response.statusCode === 401) {
+          formik.setFieldError('username', t('wrongCredentials'));
+          toast.error(t('wrongCredentials'));
         } else {
-          formik.setFieldError('username', 'Invalid Username or password');
+          toast.error(t('unknown'));
         }
-      });
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          // Axios-specific error handling
+          if (error.response) {
+            toast.error(t('unknown'));
+          } else if (error.request) {
+            toast.error(t('unknown'));
+          } else {
+            toast.error(t('unknown'));
+          }
+          console.error('Axios Error:', error.message);
+        } else if (error instanceof Error) {
+          // General error handling
+          toast.error(t('unknownError'));
+          console.error('Error:', error.message);
+        } else {
+          toast.error(t('unknownError'));
+          console.error('Unexpected Error:', error);
+        }
+        setErrorMessage(t('networkError'));
+      }
     },
-    [apiClient, navigate],
+    [apiClient, navigate, t],
   );
   const validationSchema = useMemo(
     () =>
       yup.object().shape({
-        login: yup.string().required('Required'),
-        password: yup
-          .string()
-          .required('Required')
-          .min(5, 'Password too short'),
+        login: yup.string().required(required),
+        password: yup.string().required(required).min(5, passwordMessage),
       }),
     [],
   );

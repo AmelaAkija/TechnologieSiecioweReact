@@ -63,12 +63,12 @@ const UserComponent: React.FC<Props> = ({ user, onDelete }) => {
             {user.mail}
           </p>
           <p>
-            <strong>{t('fullName')}:</strong> <br />
+            <strong>{t('fullusername')}:</strong> <br />
             {user.fullusername}
           </p>
           {error && <p className="error">{t('failedToDeleteUser')}</p>}{' '}
           <button
-            className="remove-button"
+            className="remove-button-user"
             onClick={manageUser}
             disabled={loading}
           >

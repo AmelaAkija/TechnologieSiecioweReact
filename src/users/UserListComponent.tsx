@@ -39,11 +39,13 @@ const UserListComponent: React.FC<Props> = ({ title }) => {
 
   return (
     <div className="user-list">
-      <h1 className="details-user"> {t('detailsLoans')}</h1>
       <h1 className="user-text">{t('users')}</h1>
       {error && <p className="error">{error}</p>}
       {users.map((user) => (
-        <UserComponent key={user.userId} user={user} onDelete={handleDelete} />
+        <div key={user.userId} className="user-container">
+          <UserComponent user={user} onDelete={handleDelete} />
+          <div className="details-user">{t('detailsLoans')}</div>
+        </div>
       ))}
     </div>
   );

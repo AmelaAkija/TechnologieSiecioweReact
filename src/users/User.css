@@ -3,21 +3,16 @@ body {
     padding: 0;
     background-color: #3A3A72;
 }
+
 .user-list {
     padding: 2%;
+    position: relative;
 }
-.user-form {
-    padding: 2%;
-
-}
-
 
 .user-text {
     color: #FBFFEA;
     font-size: 6vh;
     margin-right: 20%;
-
-
 }
 
 .medium-user-text {
@@ -25,23 +20,24 @@ body {
     font-size: 3vh;
     margin-right: 20%;
 }
+
 .small-user-text {
     color: #3A3A72;
     font-size: 2vh;
     margin-left: 5%;
 }
+
 .user-container {
     width: 70%;
-    /*width:fit-content;*/
     height: fit-content;
     background-color: #FBFFEA;
     border-radius: 5vh;
-    /*display: flex;*/
-    /*align-items: center;*/
     margin-bottom: 2%;
     padding: 2%;
     box-sizing: border-box;
+    position: relative;
 }
+
 .details-container {
     display: flex;
     color: #3a3a72;
@@ -53,38 +49,40 @@ body {
     border-radius: 5px;
     gap: 10%;
 }
+
 .details-container p {
     flex: 1;
     margin: 0;
 }
-.details-user{
+
+.details-user {
     color: #FBFFEA;
-    position: absolute;
     font-size: 3vh;
     font-weight: bold;
-    margin-right: 0%;
-    margin-left: 43%;
+    margin-left: 20%;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    background-color: #3A3A72;
+    padding: 5px 5px;
+    border-radius: 5px;
+    display: none;
 }
-/*.remove-button{*/
-/*    width: fit-content;*/
-/*    position: relative;*/
-/*    border-radius: 10px;*/
-/*    background-color: #3a3a72;*/
-/*    color: #fbffea;*/
-/*    margin-top: 15px;*/
-/*}*/
 
-.remove-button{
+.user-container:hover .details-user {
+    display: block;
+}
+.remove-button-user {
     height: fit-content;
-    width: 10.5%;
-    position: relative;
+    width: 11.5%;
     font-weight: bold;
     font-size: 3vh;
     border-radius: 5px;
+    margin-left: 110%;
     background-color: #3a3a72;
     color: #fbffea;
-    margin-top: 15px;
-
-    transform: translate(30%,-130%);
+    margin-top: 0.5%;
     margin-bottom: 2%;
+    position: absolute;
+    /*transform: translate(30%, -130%);*/
 }

@@ -48,14 +48,7 @@ body {
     z-index: -1;
     transform: translateY(-50%) rotate(180deg);
 }
-/*.Login-form-input {*/
-/*    background-color: #fbffea;*/
-/*    color: #3a3a72;*/
-/*    position: relative;*/
-/*    border-radius: 10px;*/
-/*    width: 40%;*/
-/*    margin-bottom: 15%;*/
-/*}*/
+
 .Login-button {
     width: 20%;
     /*display: flex;*/

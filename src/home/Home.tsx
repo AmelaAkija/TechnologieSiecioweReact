@@ -2,72 +2,37 @@ import React from 'react';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useApi } from '../api/ApiProvider';
-import { LibraryClient } from '../api/library-client';
+import star from '../star.svg';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const apiClient = useApi();
-
-  // apiClient
-  //   .getRole()
-  //   .then((response) => {
-  //     if (response.success) {
-  //       console.log('User role:', response.data);
-  //     } else {
-  //       console.error('Failed to get user role:', response.statusCode);
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.error('Error:', err);
-  //   });
-
   const { t } = useTranslation();
 
-  const handleAddBook = () => {
-    navigate('/add-book');
-  };
-
-  const handleAddUser = () => {
-    navigate('/add-user');
-  };
-
-  const handleAddLoan = () => {
-    navigate('/add-loan');
-  };
-  const handleUpdateBook = () => {
-    navigate('/update-book');
-  };
-  const handleUpdateUser = () => {
-    navigate('/update-user');
-  };
-  const handleUpdateLoan = () => {
-    navigate('/update-loan');
-  };
+  const operations = [
+    { name: t('addBook'), route: '/add-book' },
+    { name: t('addUser'), route: '/add-user' },
+    { name: t('addLoan'), route: '/add-loan' },
+    { name: t('updateBook'), route: '/update-book' },
+    { name: t('updateUser'), route: '/update-user' },
+    { name: t('updateLoan'), route: '/update-loan' },
+  ];
 
   return (
     <div>
       <h1 className="home-text">{t('HomeMessage')}</h1>
-      <div className="button-container">
-        <button className="book-button" onClick={handleAddBook}>
-          {t('AddBook')}
-        </button>
-        <button className="user-button" onClick={handleAddUser}>
-          {t('AddUser')}
-        </button>
-        <button className="loan-button" onClick={handleAddLoan}>
-          {t('AddLoan')}
-        </button>
-        <button className="book-button-update" onClick={handleUpdateBook}>
-          {t('UpdateBook')}
-        </button>
-        <button className="user-button-update" onClick={handleUpdateUser}>
-          {t('UpdateUser')}
-        </button>
-        <button className="loan-button-update" onClick={handleUpdateLoan}>
-          {t('UpdateLoan')}
-        </button>
-      </div>
+      <ul className="operation-list">
+        {operations.map((operation) => (
+          <li key={operation.route} className="operation-item">
+            <button
+              className="operation-button"
+              onClick={() => navigate(operation.route)}
+            >
+              {operation.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <img src={star} alt="Star" className="star-home" />
     </div>
   );
 };
