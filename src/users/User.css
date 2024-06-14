@@ -38,7 +38,7 @@ body {
     position: relative;
 }
 
-.details-container {
+.details-container-user {
     display: flex;
     color: #3a3a72;
     flex-wrap: nowrap;

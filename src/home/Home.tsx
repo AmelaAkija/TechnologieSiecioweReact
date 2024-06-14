@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import star from '../star.svg';
+import toast from 'react-hot-toast';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [roleFromLocalStorage, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const roleFromLocalStorage = localStorage.getItem('role');
+    setRole(roleFromLocalStorage);
+
+    if (roleFromLocalStorage === 'ROLE_READER') {
+      console.log('no permission');
+    }
+  }, []);
+  if (roleFromLocalStorage === 'ROLE_READER') {
+    toast.error(t('noPermissionError'));
+    return null;
+  }
 
   const operations = [
     { name: t('addBook'), route: '/add-book' },

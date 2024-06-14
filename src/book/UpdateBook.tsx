@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 import Book from './Book';
 import './AddBook.css';
+import toast from 'react-hot-toast';
 
 const UpdateBook = () => {
   const [bookList, setBookList] = useState<Book[]>([]);
@@ -68,25 +69,27 @@ const UpdateBook = () => {
         );
         console.log(selectedBookId);
         if (response.success) {
-          setSuccessMessage('Book updated successfully!');
+          toast.success(t('updated'));
+          // setSuccessMessage('Book updated successfully!');
           setErrorMessage('');
         } else {
-          setErrorMessage('Failed to update book');
+          // setErrorMessage('Failed to update book');
+          toast.error(t('errorUpdate'));
         }
       } catch (error: any) {
         console.error('Error updating book:', error);
-        setErrorMessage('Failed to update book');
+        toast.error(t('errorUpdate'));
       }
     }
   };
 
   return (
     <div>
-      <h2 className="add-book-text">{t('UpdateBook')}</h2>
-      {successMessage && (
-        <p className="success-message-book">{successMessage}</p>
-      )}
-      {errorMessage && <p className="error-message-book">{errorMessage}</p>}
+      <h2 className="add-book-text">{t('updateBook')}</h2>
+      {/*{successMessage && (*/}
+      {/*  <p className="success-message-book">{successMessage}</p>*/}
+      {/*)}*/}
+      {/*{errorMessage && <p className="error-message-book">{errorMessage}</p>}*/}
 
       <select
         className="choose-book"
@@ -94,7 +97,7 @@ const UpdateBook = () => {
         value={selectedBookId || ''}
       >
         <option value="" disabled>
-          {t('SelectBook')}
+          {t('selectBook')}
         </option>
         {bookList.map((book) => (
           <option key={book.bookId} value={book.bookId}>

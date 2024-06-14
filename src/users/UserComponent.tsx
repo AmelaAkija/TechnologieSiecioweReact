@@ -53,7 +53,7 @@ const UserComponent: React.FC<Props> = ({ user, onDelete }) => {
         ID: {user.userId}
       </h2>
       {showDetails && (
-        <div className="details-container">
+        <div className="details-container-user">
           <p>
             <strong>{t('username')}:</strong> <br />
             {user.username}

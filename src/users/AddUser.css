@@ -9,12 +9,34 @@
     width: 15%;
     border-radius: 5px;
 }
+.username-input-update{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
 .password-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
     left: 30%;
     top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.password-input-update{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 30%;
+    top: 50%;
     border-color: #FBFFEA;
     height: 4%;
     width: 15%;
@@ -31,12 +53,34 @@
     width: 15%;
     border-radius: 5px;
 }
+.mail-input-update{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
 .fullusername-input{
     color: #3a3a72;
     background-color: #FBFFEA;
     position: absolute;
     left: 55%;
     top: 30%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
+.fullusername-input-update{
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 55%;
+    top: 40%;
     border-color: #FBFFEA;
     height: 4%;
     width: 15%;
@@ -129,6 +173,6 @@
     border-radius: 5px;
     background-color: #FBFFEA;
     color: #3a3a72;
-    margin-top: 7%;
-    margin-left: 5%;
+    top: 25%;
+    margin-left: 35%;
 }

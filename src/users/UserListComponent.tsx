@@ -4,6 +4,7 @@ import { LibraryClient, ClientResponse } from '../api/library-client';
 import UserType from './User';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
+import toast from 'react-hot-toast';
 
 interface Props {
   title: string;
@@ -14,26 +15,44 @@ const UserListComponent: React.FC<Props> = ({ title }) => {
   const { t } = useTranslation();
   const [error, setError] = useState('');
   const apiClient = useApi();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response: ClientResponse<UserType[]> = await apiClient.getUsers();
+      setLoading(true);
+      const response: ClientResponse<any> = await apiClient.getUsers();
       if (response.success) {
         setUsers(response.data);
+        setLoading(false);
       } else {
-        setError(t('failedToFetchUsers'));
+        if (
+          response.statusCode === 403 &&
+          !localStorage.getItem('permissionErrorShown')
+        ) {
+          toast.error(t('noPermissionError'));
+          localStorage.setItem('permissionErrorShown', 'true');
+        } else {
+          // toast.error(t('noPermissionError'));
+        }
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [t, apiClient]);
+  }, [apiClient, t]);
 
   const handleDelete = async (userId: number, reloadPage: () => void) => {
-    const response = await apiClient.deleteUser(userId);
-    if (response.success) {
-      reloadPage();
-    } else {
-      setError(t('failedToDeleteUser'));
+    try {
+      const response = await apiClient.deleteUser(userId);
+      if (response.success) {
+        setUsers(users.filter((user) => user.userId !== userId));
+        toast.success(t('userDeletedSuccessfully'));
+      } else {
+        toast.error(t('failedToDelete'));
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error(t('failedToDelete'));
     }
   };
 

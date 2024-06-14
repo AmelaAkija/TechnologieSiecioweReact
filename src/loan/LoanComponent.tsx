@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material';
 import LoanType from './Loan';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
+import toast from 'react-hot-toast';
 
 interface Props {
   loan: LoanType;
@@ -30,14 +31,14 @@ const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
       console.log('Deleting loan with ID:', loan.loanId);
       const response = await client.deleteLoan(loan.loanId);
       if (response.success) {
-        console.log('loan deleted successfully');
+        toast.success(t('loanDeletedSuccessfully'));
         window.location.reload();
       } else {
-        setError(t('failedToDeleteLoan'));
+        toast.error(t('failedToDelete'));
       }
     } catch (error) {
       console.error('Error deleting loan:', error);
-      setError(t('failedToDeleteLoan'));
+      toast.error(t('failedToDelete'));
     }
     setLoading(false);
   };
@@ -61,7 +62,7 @@ const LoanComponent: React.FC<Props> = ({ loan, onDelete }) => {
         ID: {loan.loanId}
       </h2>
       {showDetails && (
-        <div className="details-container">
+        <div className="details-container-loan">
           <p>
             <strong>{t('loanDateStart')}:</strong> <br />
             {formatDate(loan.loanDateStart)}

@@ -33,6 +33,17 @@
     width: 15%;
     border-radius: 5px;
 }
+.loanDateEnd-input-update {
+    color: #3a3a72;
+    background-color: #FBFFEA;
+    position: absolute;
+    left: 43%;
+    top: 40%;
+    border-color: #FBFFEA;
+    height: 4%;
+    width: 15%;
+    border-radius: 5px;
+}
 
 .userId-input {
     color: #3a3a72;
@@ -147,6 +158,6 @@
     border-radius: 5px;
     background-color: #FBFFEA;
     color: #3a3a72;
-    margin-top: 7%;
+    margin-top: 2%;
     margin-left: 5%;
 }

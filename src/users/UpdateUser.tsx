@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 import User from './User';
 import './AddUser.css';
+import toast from 'react-hot-toast';
 
 const UpdateUser = () => {
   const [userList, setUserList] = useState<User[]>([]);
@@ -12,10 +13,22 @@ const UpdateUser = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { t } = useTranslation();
   const clientApi = useApi();
-
+  const [roleFromLocalStorage, setRole] = useState<string | null>(null);
   useEffect(() => {
     fetchUsers();
   }, []);
+  useEffect(() => {
+    const roleFromLocalStorage = localStorage.getItem('role');
+    setRole(roleFromLocalStorage);
+
+    if (roleFromLocalStorage === 'ROLE_READER') {
+      console.log('no permission');
+    }
+  }, []);
+  if (roleFromLocalStorage === 'ROLE_READER') {
+    toast.error(t('noPermissionError'));
+    return null;
+  }
 
   const fetchUsers = async () => {
     try {
@@ -64,21 +77,21 @@ const UpdateUser = () => {
           userDetails,
         );
         if (response.success) {
-          setSuccessMessage('User updated successfully!');
+          toast.success(t('updated'));
           setErrorMessage('');
         } else {
-          setErrorMessage('Failed to update user');
+          toast.error(t('errorUpdate'));
         }
       } catch (error: any) {
         console.error('Error updating user:', error);
-        setErrorMessage('Failed to update user');
+        toast.error(t('errorUpdate'));
       }
     }
   };
 
   return (
     <div>
-      <h2 className="add-user-text">{t('UpdateUser')}</h2>
+      <h2 className="add-user-text">{t('updateUser')}</h2>
       {successMessage && (
         <p className="success-message-user">{successMessage}</p>
       )}
@@ -90,7 +103,7 @@ const UpdateUser = () => {
         value={selectedUserId || ''}
       >
         <option value="" disabled>
-          {t('SelectUser')}
+          {t('selectUser')}
         </option>
         {userList.map((user) => (
           <option key={user.userId} value={user.userId}>
@@ -104,8 +117,8 @@ const UpdateUser = () => {
           <input
             type="text"
             name="username"
-            placeholder={t('Username')}
-            className="username-input"
+            placeholder={t('username')}
+            className="username-input-update"
             value={userDetails?.username || ''}
             onChange={handleChange}
           />
@@ -113,21 +126,30 @@ const UpdateUser = () => {
           <input
             type="email"
             name="mail"
-            placeholder={t('Mail')}
-            className="mail-input"
+            placeholder="email"
+            className="mail-input-update"
             value={userDetails?.mail || ''}
             onChange={handleChange}
           />
           <input
             type="text"
             name="fullusername"
-            placeholder={t('FullName')}
-            className="fullusername-input"
+            placeholder={t('fullusername')}
+            className="fullusername-input-update"
             value={userDetails?.fullusername || ''}
             onChange={handleChange}
           />
-          <button className="update-user-button" type="submit">
-            {t('UpdateUser')}
+          <input
+            type="password"
+            name="password"
+            className="password-input-update"
+            placeholder={t('password')}
+            value={userDetails.password}
+            onChange={handleChange}
+            required
+          />
+          <button className="add-user-button" type="submit">
+            {t('updateUser')}
           </button>
         </form>
       )}

@@ -1,8 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import './AddLoan.css';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../api/ApiProvider';
 import Loan from './Loan';
+import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 const AddLoan = () => {
   const [loan, setLoan] = useState({
@@ -12,10 +14,22 @@ const AddLoan = () => {
     loanUserId: '',
     loanBookId: '',
   });
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const { t } = useTranslation();
   const clientApi = useApi();
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const roleFromLocalStorage = localStorage.getItem('role');
+    setRole(roleFromLocalStorage);
+
+    if (roleFromLocalStorage === 'ROLE_READER') {
+      console.log('no permission');
+      toast.error(t('noPermissionError'));
+    }
+  }, []);
+  if (localStorage.getItem('role') === 'ROLE_READER') {
+    return null;
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,19 +43,37 @@ const AddLoan = () => {
     e.preventDefault();
     try {
       const response = await clientApi.addLoan(loan as unknown as Loan);
-      console.log('Loan added successfully:', response.data);
-      setSuccessMessage(t('successLoan'));
-      setLoan({
-        loanDateStart: '',
-        loanPeriod: '',
-        loanDateEnd: null,
-        loanUserId: '',
-        loanBookId: '',
-      });
-      setErrorMessage('');
-    } catch (error) {
+      if (response.statusCode === 201) {
+        toast.success(t('successLoan'));
+        setLoan({
+          loanDateStart: '',
+          loanPeriod: '',
+          loanDateEnd: null,
+          loanUserId: '',
+          loanBookId: '',
+        });
+      } else if (response.statusCode === 400) {
+        toast.error(t('error400'));
+      } else if (response.statusCode === 404) {
+        toast.error(t('error404'));
+      } else {
+        toast.error(t('error'));
+      }
+    } catch (error: unknown) {
       console.error('Error adding loan:', error);
-      setErrorMessage(t('error'));
+      if (
+        (error as AxiosError).response &&
+        (error as AxiosError).response?.status === 404
+      ) {
+        toast.error(t('error404'));
+      } else if (
+        (error as AxiosError).response &&
+        (error as AxiosError).response?.status === 400
+      ) {
+        toast.error(t('error400'));
+      } else {
+        toast.error(t('error'));
+      }
     }
   };
 
@@ -50,10 +82,6 @@ const AddLoan = () => {
   return (
     <div>
       <h2 className="add-loan-text">{t('AddLoan')}:</h2>
-      {successMessage && (
-        <p className="success-message-loan">{successMessage}</p>
-      )}
-      {errorMessage && <p className="error-message-loan">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="date"

@@ -102,12 +102,14 @@ const BookListComponent: React.FC<Props> = ({ title, showReserveButton }) => {
         <div className="found-text">{t('noBooksFound')}</div>
       )}
       {filteredBooks.map((book) => (
-        <Book
-          key={book.bookId}
-          book={book}
-          showReserveButton={showReserveButton}
-          onDelete={handleDelete}
-        />
+        <div key={book.bookId} className="book-container">
+          <Book
+            book={book}
+            showReserveButton={showReserveButton}
+            onDelete={handleDelete}
+          />
+          <div className="details-book">{t('detailsBooks')}</div>
+        </div>
       ))}
     </div>
   );

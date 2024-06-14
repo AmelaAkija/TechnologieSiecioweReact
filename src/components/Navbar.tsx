@@ -57,6 +57,7 @@ const Navbar: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('permissionErrorShown');
     navigate('/');
   };
 
