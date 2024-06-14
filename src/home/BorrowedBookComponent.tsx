@@ -1,7 +1,8 @@
+// BorrowedBookComponent.tsx
 import React, { useState } from 'react';
-import './Book.css';
-import { useTranslation } from 'react-i18next';
+import './ReaderHome.css';
 import BorrowedBook from './BorrowedBook';
+import { useTranslation } from 'react-i18next';
 import { CircularProgress } from '@mui/material';
 
 interface BorrowedBookProps {
@@ -41,6 +42,10 @@ const BorrowedBookComponent: React.FC<BorrowedBookProps> = ({
           <p>
             <strong>{t('loanDateStart')}</strong> <br />
             {borrowedBook.loanDateStart}
+          </p>
+          <p>
+            <strong>{t('loanDateStart')}</strong> <br />
+            {borrowedBook.loanPeriod}
           </p>
           <p>
             <strong>{t('loanDateEnd')}</strong> <br />

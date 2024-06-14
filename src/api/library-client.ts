@@ -4,7 +4,7 @@ import Book from '../book/Book';
 import User from '../users/User';
 import Loan from '../loan/Loan';
 import book from '../book/Book';
-import BorrowedBook from '../book/BorrowedBook';
+import BorrowedBook from '../home/BorrowedBook';
 
 export type ClientResponse<T> = {
   success: boolean;

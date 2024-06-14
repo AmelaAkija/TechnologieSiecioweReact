@@ -15,10 +15,23 @@ const UpdateBook = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { t } = useTranslation();
   const clientApi = useApi();
+  const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
     fetchBooks();
   }, []);
+  useEffect(() => {
+    const roleFromLocalStorage = localStorage.getItem('role');
+    setRole(roleFromLocalStorage);
+
+    if (roleFromLocalStorage === 'ROLE_READER') {
+      console.log('no permission');
+      toast.error(t('noPermissionError'));
+    }
+  }, []);
+  if (localStorage.getItem('role') === 'ROLE_READER') {
+    return null;
+  }
 
   const fetchBooks = async () => {
     try {
@@ -156,7 +169,7 @@ const UpdateBook = () => {
             value={bookDetails?.availableCopies || ''}
             onChange={handleChange}
           />
-          <button className="update-book-button" type="submit">
+          <button className="add-book-button" type="submit">
             {t('UpdateBook')}
           </button>
         </form>

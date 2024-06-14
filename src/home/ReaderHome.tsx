@@ -1,48 +1,21 @@
+// ReaderHome.tsx
 import React, { useEffect, useState } from 'react';
-import './ReaderHome.css';
+import BorrowedBookComponent from './BorrowedBookComponent';
 import { useApi } from '../api/ApiProvider';
-import { ClientResponse } from '../api/library-client';
-import BorrowedBook from '../book/BorrowedBook';
 import { useTranslation } from 'react-i18next';
-import BorrowedBookComponent from '../book/BorrowedBookComponent';
+import './ReaderHome.css';
+import BorrowedBook from './BorrowedBook';
+import { Select, MenuItem } from '@mui/material'; // Import Select and MenuItem from MUI
 
 const ReaderHome: React.FC = () => {
   const [borrows, setBorrows] = useState<BorrowedBook[]>([]);
-  const apiClient = useApi();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { t, i18n } = useTranslation();
-  //
-  // useEffect(() => {
-  //   const fetchData = async (userId: string | null) => {
-  //     if (!userId) {
-  //       setError('User ID is missing');
-  //       setLoading(false);
-  //       return;
-  //     }
-  //
-  //     const response: ClientResponse<BorrowedBook[] | null> =
-  //       await apiClient.getBorrowedBooks(parseInt(userId, 10));
-  //     if (response.success && response.data !== null) {
-  //       setBooks(response.data);
-  //     } else {
-  //       setError('Failed to fetch books');
-  //     }
-  //     setLoading(false);
-  //   };
-  //
-  //   const fetchUserId = async () => {
-  //     const idResponse: ClientResponse<string | null> = await apiClient.getID();
-  //     if (idResponse.success && idResponse.data !== null) {
-  //       fetchData(idResponse.data);
-  //     } else {
-  //       setError('Failed to fetch user ID');
-  //       setLoading(false);
-  //     }
-  //   };
-  //
-  //   fetchUserId();
-  // }, []);
+  const [expandedLoanId, setExpandedLoanId] = useState<number | null>(null); // Changed to number | null
+  const [filterType, setFilterType] = useState<string>('all');
+  const { t } = useTranslation();
+  const apiClient = useApi();
+
   useEffect(() => {
     const fetchAllBooks = async () => {
       setLoading(true);
@@ -64,13 +37,35 @@ const ReaderHome: React.FC = () => {
     fetchAllBooks();
   }, [apiClient]);
 
+  const filteredBorrows = borrows.filter((borrow) => {
+    if (filterType === 'null') {
+      return borrow.loanDateEnd === null;
+    } else if (filterType === 'notNull') {
+      return borrow.loanDateEnd !== null;
+    } else {
+      return true;
+    }
+  });
+
   return (
     <div>
-      <h1 className="home-text">Welcome to Library System!</h1>
+      <h1 className="home-text-borrow">{t('homeMessage')}</h1>
+      <h1 className="borrows">{t('borrows')}</h1>
+
+      <Select
+        value={filterType}
+        className="choose-borrow"
+        onChange={(e) => setFilterType(e.target.value as string)}
+      >
+        <MenuItem value="all">{t('all')}</MenuItem>
+        <MenuItem value="null">{t('unfinished')}</MenuItem>
+        <MenuItem value="notNull">{t('finishedLoans')}</MenuItem>
+      </Select>
+
       <div className="book-list-container">
         {loading && <div>{t('loading')}</div>}
-        {borrows.map((b) => (
-          <BorrowedBookComponent borrowedBook={b} />
+        {filteredBorrows.map((b) => (
+          <BorrowedBookComponent borrowedBook={b} key={b.loanId} />
         ))}
       </div>
     </div>

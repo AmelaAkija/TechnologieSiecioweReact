@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1 className="home-text">{t('HomeMessage')}</h1>
+      <h1 className="home-text">{t('homeMessage')}</h1>
       <ul className="operation-list">
         {operations.map((operation) => (
           <li key={operation.route} className="operation-item">

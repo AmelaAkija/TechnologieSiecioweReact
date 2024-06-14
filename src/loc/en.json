@@ -1,5 +1,5 @@
 {
-  "Library System": "Librabry System",
+  "librarySystem": "Librabry System",
   "catalog": "catalog",
   "loans": "Loans",
   "books": "Books",
@@ -10,6 +10,8 @@
   "period": "Loan period",
   "selectUser": "Select user",
   "users": "Users",
+  "borrows": "Your borrowed books:",
+  "homeMessage": "Welcome to the library system!",
   "userDeletedSuccessfully": "User deleted successfully",
   "loanDeletedSuccessfully": "Loan deleted successfully",
   "confirm-loan": "Are you sure you want to delete this loan?",
@@ -36,7 +38,6 @@
   "unfinishedWithNullEndDate": "Not finished",
   "SignIn": "Sign in",
   "LoginMessage": "Log in to the library system!",
-  "HomeMessage": "Welcome to Library System!",
   "addLoan": "Add Loan",
   "addBook": "Add Book",
   "addUser": "Add User",

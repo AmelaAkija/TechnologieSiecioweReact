@@ -81,7 +81,7 @@ const AddLoan = () => {
 
   return (
     <div>
-      <h2 className="add-loan-text">{t('AddLoan')}:</h2>
+      <h2 className="add-loan-text">{t('addLoan')}:</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="date"
@@ -122,7 +122,7 @@ const AddLoan = () => {
           required
         />
         <button className="add-loan-button" type="submit">
-          {t('AddLoan')}
+          {t('addLoan')}
         </button>
       </form>
     </div>

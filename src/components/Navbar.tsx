@@ -134,7 +134,7 @@ const Navbar: React.FC = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <strong>{t('Library System')}</strong>
+            <strong>{t('librarySystem')}</strong>
           </Typography>
           {showTabs && (
             <Tabs

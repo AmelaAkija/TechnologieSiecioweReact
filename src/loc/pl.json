@@ -1,5 +1,5 @@
 {
-  "Library System": "System Biblioteczny",
+  "librarySystem": "System Biblioteczny",
   "catalog": "katalog",
   "loans": "Wypożyczenia",
   "logOut": "Wyloguj",
@@ -31,7 +31,8 @@
   "SignIn": "Zaloguj",
   "fullusername": "Pełna nazwa",
   "LoginMessage": "Zaloguj się do systemu bibliotecznego!",
-  "HomeMessage": "Witaj w systemie bibliotecznym!",
+  "homeMessage": "Witaj w systemie bibliotecznym!",
+  "borrows": "Twoje wypożyczone książki:",
   "addLoan": "Dodaj pożyczkę",
   "addBook": "Dodaj książkę",
   "addUser": "Dodaj użytkownika",
